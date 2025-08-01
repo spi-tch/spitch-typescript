@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import type { Spitchy } from '../client';
+import type { Spitch } from '../client';
 
 export abstract class APIResource {
-  protected _client: Spitchy;
+  protected _client: Spitch;
 
-  constructor(client: Spitchy) {
+  constructor(client: Spitch) {
     this._client = client;
   }
 }

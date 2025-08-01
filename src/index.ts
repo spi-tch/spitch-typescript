@@ -1,12 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Spitchy as default } from './client';
+export { Spitch as default } from './client';
 
 export { type Uploadable, toFile } from './core/uploads';
 export { APIPromise } from './core/api-promise';
-export { Spitchy, type ClientOptions } from './client';
+export { Spitch, type ClientOptions } from './client';
 export {
-  SpitchyError,
+  SpitchError,
   APIError,
   APIConnectionError,
   APIConnectionTimeoutError,

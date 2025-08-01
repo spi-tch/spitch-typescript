@@ -16,14 +16,20 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import { DiacriticCreateParams, DiacriticCreateResponse, Diacritics } from './resources/diacritics';
-import { Language, Speech, SpeechSynthesizeParams, SpeechSynthesizeResponse } from './resources/speech';
 import {
-  TranscriptionCreateParams,
-  TranscriptionCreateResponse,
-  Transcriptions,
-} from './resources/transcriptions';
-import { Translate, TranslateCreateParams, TranslateCreateResponse } from './resources/translate';
+  Speech,
+  SpeechGenerateParams,
+  SpeechGenerateResponse,
+  SpeechTranscribeParams,
+  SpeechTranscribeResponse,
+} from './resources/speech';
+import {
+  Text,
+  TextToneMarkParams,
+  TextToneMarkResponse,
+  TextTranslateParams,
+  TextTranslateResponse,
+} from './resources/text';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -39,14 +45,14 @@ import { isEmptyObj } from './internal/utils/values';
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env['SPITCHY_API_KEY'].
+   * Defaults to process.env['SPITCH_API_KEY'].
    */
-  apiKey?: string | null | undefined;
+  apiKey?: string | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
-   * Defaults to process.env['SPITCHY_BASE_URL'].
+   * Defaults to process.env['SPITCH_BASE_URL'].
    */
   baseURL?: string | null | undefined;
 
@@ -100,7 +106,7 @@ export interface ClientOptions {
   /**
    * Set the log level.
    *
-   * Defaults to process.env['SPITCHY_LOG'] or 'warn' if it isn't set.
+   * Defaults to process.env['SPITCH_LOG'] or 'warn' if it isn't set.
    */
   logLevel?: LogLevel | undefined;
 
@@ -113,10 +119,10 @@ export interface ClientOptions {
 }
 
 /**
- * API Client for interfacing with the Spitchy API.
+ * API Client for interfacing with the Spitch API.
  */
-export class Spitchy {
-  apiKey: string | null;
+export class Spitch {
+  apiKey: string;
 
   baseURL: string;
   maxRetries: number;
@@ -131,10 +137,10 @@ export class Spitchy {
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the Spitchy API.
+   * API Client for interfacing with the Spitch API.
    *
-   * @param {string | null | undefined} [opts.apiKey=process.env['SPITCHY_API_KEY'] ?? null]
-   * @param {string} [opts.baseURL=process.env['SPITCHY_BASE_URL'] ?? https://api.spi-tch.com] - Override the default base URL for the API.
+   * @param {string | undefined} [opts.apiKey=process.env['SPITCH_API_KEY'] ?? undefined]
+   * @param {string} [opts.baseURL=process.env['SPITCH_BASE_URL'] ?? https://api.spi-tch.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -143,10 +149,16 @@ export class Spitchy {
    * @param {Record<string, string | undefined>} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
   constructor({
-    baseURL = readEnv('SPITCHY_BASE_URL'),
-    apiKey = readEnv('SPITCHY_API_KEY') ?? null,
+    baseURL = readEnv('SPITCH_BASE_URL'),
+    apiKey = readEnv('SPITCH_API_KEY'),
     ...opts
   }: ClientOptions = {}) {
+    if (apiKey === undefined) {
+      throw new Errors.SpitchError(
+        "The SPITCH_API_KEY environment variable is missing or empty; either provide it, or instantiate the Spitch client with an apiKey option, like new Spitch({ apiKey: 'My API Key' }).",
+      );
+    }
+
     const options: ClientOptions = {
       apiKey,
       ...opts,
@@ -154,14 +166,14 @@ export class Spitchy {
     };
 
     this.baseURL = options.baseURL!;
-    this.timeout = options.timeout ?? Spitchy.DEFAULT_TIMEOUT /* 1 minute */;
+    this.timeout = options.timeout ?? Spitch.DEFAULT_TIMEOUT /* 1 minute */;
     this.logger = options.logger ?? console;
     const defaultLogLevel = 'warn';
     // Set default logLevel early so that we can log a warning in parseLogLevel.
     this.logLevel = defaultLogLevel;
     this.logLevel =
       parseLogLevel(options.logLevel, 'ClientOptions.logLevel', this) ??
-      parseLogLevel(readEnv('SPITCHY_LOG'), "process.env['SPITCHY_LOG']", this) ??
+      parseLogLevel(readEnv('SPITCH_LOG'), "process.env['SPITCH_LOG']", this) ??
       defaultLogLevel;
     this.fetchOptions = options.fetchOptions;
     this.maxRetries = options.maxRetries ?? 2;
@@ -204,22 +216,10 @@ export class Spitchy {
   }
 
   protected validateHeaders({ values, nulls }: NullableHeaders) {
-    if (this.apiKey && values.get('authorization')) {
-      return;
-    }
-    if (nulls.has('authorization')) {
-      return;
-    }
-
-    throw new Error(
-      'Could not resolve authentication method. Expected the apiKey to be set. Or for the "Authorization" headers to be explicitly omitted',
-    );
+    return;
   }
 
   protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
-    if (this.apiKey == null) {
-      return undefined;
-    }
     return buildHeaders([{ Authorization: `Bearer ${this.apiKey}` }]);
   }
 
@@ -236,7 +236,7 @@ export class Spitchy {
         if (value === null) {
           return `${encodeURIComponent(key)}=`;
         }
-        throw new Errors.SpitchyError(
+        throw new Errors.SpitchError(
           `Cannot stringify type ${typeof value}; Expected string, number, boolean, or null. If you need to pass nested query parameters, you can manually encode them, e.g. { query: { 'foo[key1]': value1, 'foo[key2]': value2 } }, and please open a GitHub issue requesting better support for your use case.`,
         );
       })
@@ -708,10 +708,10 @@ export class Spitchy {
     }
   }
 
-  static Spitchy = this;
+  static Spitch = this;
   static DEFAULT_TIMEOUT = 60000; // 1 minute
 
-  static SpitchyError = Errors.SpitchyError;
+  static SpitchError = Errors.SpitchError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -727,40 +727,27 @@ export class Spitchy {
 
   static toFile = Uploads.toFile;
 
-  transcriptions: API.Transcriptions = new API.Transcriptions(this);
   speech: API.Speech = new API.Speech(this);
-  translate: API.Translate = new API.Translate(this);
-  diacritics: API.Diacritics = new API.Diacritics(this);
+  text: API.Text = new API.Text(this);
 }
-Spitchy.Transcriptions = Transcriptions;
-Spitchy.Speech = Speech;
-Spitchy.Translate = Translate;
-Spitchy.Diacritics = Diacritics;
-export declare namespace Spitchy {
+Spitch.Speech = Speech;
+Spitch.Text = Text;
+export declare namespace Spitch {
   export type RequestOptions = Opts.RequestOptions;
 
   export {
-    Transcriptions as Transcriptions,
-    type TranscriptionCreateResponse as TranscriptionCreateResponse,
-    type TranscriptionCreateParams as TranscriptionCreateParams,
-  };
-
-  export {
     Speech as Speech,
-    type Language as Language,
-    type SpeechSynthesizeResponse as SpeechSynthesizeResponse,
-    type SpeechSynthesizeParams as SpeechSynthesizeParams,
+    type SpeechGenerateResponse as SpeechGenerateResponse,
+    type SpeechTranscribeResponse as SpeechTranscribeResponse,
+    type SpeechGenerateParams as SpeechGenerateParams,
+    type SpeechTranscribeParams as SpeechTranscribeParams,
   };
 
   export {
-    Translate as Translate,
-    type TranslateCreateResponse as TranslateCreateResponse,
-    type TranslateCreateParams as TranslateCreateParams,
-  };
-
-  export {
-    Diacritics as Diacritics,
-    type DiacriticCreateResponse as DiacriticCreateResponse,
-    type DiacriticCreateParams as DiacriticCreateParams,
+    Text as Text,
+    type TextToneMarkResponse as TextToneMarkResponse,
+    type TextTranslateResponse as TextTranslateResponse,
+    type TextToneMarkParams as TextToneMarkParams,
+    type TextTranslateParams as TextTranslateParams,
   };
 }

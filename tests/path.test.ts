@@ -1,4 +1,4 @@
-import { createPathTagFunction, encodeURIPath } from 'spitchy/internal/utils/path';
+import { createPathTagFunction, encodeURIPath } from 'spitch/internal/utils/path';
 import { inspect } from 'node:util';
 import { runInNewContext } from 'node:vm';
 

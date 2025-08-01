@@ -1,40 +1,23 @@
-# Transcriptions
-
-Types:
-
-- <code><a href="./src/resources/transcriptions.ts">TranscriptionCreateResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/transcriptions">client.transcriptions.<a href="./src/resources/transcriptions.ts">create</a>({ ...params }) -> TranscriptionCreateResponse</code>
-
 # Speech
 
 Types:
 
-- <code><a href="./src/resources/speech.ts">Language</a></code>
-- <code><a href="./src/resources/speech.ts">SpeechSynthesizeResponse</a></code>
+- <code><a href="./src/resources/speech.ts">SpeechGenerateResponse</a></code>
+- <code><a href="./src/resources/speech.ts">SpeechTranscribeResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/speech">client.speech.<a href="./src/resources/speech.ts">synthesize</a>({ ...params }) -> unknown</code>
+- <code title="post /v1/speech">client.speech.<a href="./src/resources/speech.ts">generate</a>({ ...params }) -> unknown</code>
+- <code title="post /v1/transcriptions">client.speech.<a href="./src/resources/speech.ts">transcribe</a>({ ...params }) -> SpeechTranscribeResponse</code>
 
-# Translate
+# Text
 
 Types:
 
-- <code><a href="./src/resources/translate.ts">TranslateCreateResponse</a></code>
+- <code><a href="./src/resources/text.ts">TextToneMarkResponse</a></code>
+- <code><a href="./src/resources/text.ts">TextTranslateResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/translate">client.translate.<a href="./src/resources/translate.ts">create</a>({ ...params }) -> TranslateCreateResponse</code>
-
-# Diacritics
-
-Types:
-
-- <code><a href="./src/resources/diacritics.ts">DiacriticCreateResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/diacritics">client.diacritics.<a href="./src/resources/diacritics.ts">create</a>({ ...params }) -> unknown</code>
+- <code title="post /v1/diacritics">client.text.<a href="./src/resources/text.ts">toneMark</a>({ ...params }) -> unknown</code>
+- <code title="post /v1/translate">client.text.<a href="./src/resources/text.ts">translate</a>({ ...params }) -> TextTranslateResponse</code>

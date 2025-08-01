@@ -1,5 +1,5 @@
-import { multipartFormRequestOptions, createForm } from 'spitchy/internal/uploads';
-import { toFile } from 'spitchy/core/uploads';
+import { multipartFormRequestOptions, createForm } from 'spitch/internal/uploads';
+import { toFile } from 'spitch/core/uploads';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {

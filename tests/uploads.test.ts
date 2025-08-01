@@ -1,6 +1,6 @@
 import fs from 'fs';
-import type { ResponseLike } from 'spitchy/internal/to-file';
-import { toFile } from 'spitchy/core/uploads';
+import type { ResponseLike } from 'spitch/internal/to-file';
+import { toFile } from 'spitch/core/uploads';
 import { File } from 'node:buffer';
 
 class MyClass {
@@ -97,7 +97,7 @@ describe('missing File error message', () => {
   });
 
   test('is thrown', async () => {
-    const uploads = await import('spitchy/core/uploads');
+    const uploads = await import('spitch/core/uploads');
     await expect(
       uploads.toFile(mockResponse({ url: 'https://example.com/my/audio.mp3' })),
     ).rejects.toMatchInlineSnapshot(
