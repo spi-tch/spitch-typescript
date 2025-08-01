@@ -25,6 +25,9 @@ import Spitch from 'spitch';
 const client = new Spitch();
 
 const response = await client.speech.generate({ language: 'yo', text: 'text', voice: 'sade' });
+
+const content = await response.blob();
+console.log(content);
 ```
 
 ### Request & Response types
@@ -38,7 +41,7 @@ import Spitch from 'spitch';
 const client = new Spitch();
 
 const params: Spitch.SpeechGenerateParams = { language: 'yo', text: 'text', voice: 'sade' };
-const response: unknown = await client.speech.generate(params);
+const response: Response = await client.speech.generate(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -59,17 +62,17 @@ import Spitch, { toFile } from 'spitch';
 const client = new Spitch();
 
 // If you have access to Node `fs` we recommend using `fs.createReadStream()`:
-await client.speech.transcribe({ content: fs.createReadStream('/path/to/file') });
+await client.speech.transcribe({ language: 'yo', content: fs.createReadStream('/path/to/file') });
 
 // Or if you have the web `File` API you can pass a `File` instance:
-await client.speech.transcribe({ content: new File(['my bytes'], 'file') });
+await client.speech.transcribe({ language: 'yo', content: new File(['my bytes'], 'file') });
 
 // You can also pass a `fetch` `Response`:
-await client.speech.transcribe({ content: await fetch('https://somesite/file') });
+await client.speech.transcribe({ language: 'yo', content: await fetch('https://somesite/file') });
 
 // Finally, if none of the above are convenient, you can use our `toFile` helper:
-await client.speech.transcribe({ content: await toFile(Buffer.from('my bytes'), 'file') });
-await client.speech.transcribe({ content: await toFile(new Uint8Array([0, 1, 2]), 'file') });
+await client.speech.transcribe({ language: 'yo', content: await toFile(Buffer.from('my bytes'), 'file') });
+await client.speech.transcribe({ language: 'yo', content: await toFile(new Uint8Array([0, 1, 2]), 'file') });
 ```
 
 ## Handling errors

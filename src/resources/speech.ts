@@ -10,17 +10,19 @@ export class Speech extends APIResource {
   /**
    * Synthesize
    */
-  generate(body: SpeechGenerateParams, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.post('/v1/speech', { body, ...options });
+  generate(body: SpeechGenerateParams, options?: RequestOptions): APIPromise<Response> {
+    return this._client.post('/v1/speech', {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: 'audio/wav' }, options?.headers]),
+      __binaryResponse: true,
+    });
   }
 
   /**
    * Transcribe
    */
-  transcribe(
-    body: SpeechTranscribeParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<SpeechTranscribeResponse> {
+  transcribe(body: SpeechTranscribeParams, options?: RequestOptions): APIPromise<SpeechTranscribeResponse> {
     return this._client.post('/v1/transcriptions', {
       body,
       ...options,
@@ -28,8 +30,6 @@ export class Speech extends APIResource {
     });
   }
 }
-
-export type SpeechGenerateResponse = unknown;
 
 export interface SpeechTranscribeResponse {
   request_id: string;
@@ -82,9 +82,9 @@ export interface SpeechGenerateParams {
 }
 
 export interface SpeechTranscribeParams {
-  content?: Uploadable | null;
+  language: 'yo' | 'en' | 'ha' | 'ig' | 'am';
 
-  language?: 'yo' | 'en' | 'ha' | 'ig' | 'am' | null;
+  content?: Uploadable | null;
 
   model?: 'mansa_v1' | 'legacy' | null;
 
@@ -97,7 +97,6 @@ export interface SpeechTranscribeParams {
 
 export declare namespace Speech {
   export {
-    type SpeechGenerateResponse as SpeechGenerateResponse,
     type SpeechTranscribeResponse as SpeechTranscribeResponse,
     type SpeechGenerateParams as SpeechGenerateParams,
     type SpeechTranscribeParams as SpeechTranscribeParams,

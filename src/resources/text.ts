@@ -8,7 +8,7 @@ export class Text extends APIResource {
   /**
    * Tone Mark
    */
-  toneMark(body: TextToneMarkParams, options?: RequestOptions): APIPromise<unknown> {
+  toneMark(body: TextToneMarkParams, options?: RequestOptions): APIPromise<TextToneMarkResponse> {
     return this._client.post('/v1/diacritics', { body, ...options });
   }
 
@@ -20,7 +20,11 @@ export class Text extends APIResource {
   }
 }
 
-export type TextToneMarkResponse = unknown;
+export interface TextToneMarkResponse {
+  request_id: string;
+
+  text: string;
+}
 
 export interface TextTranslateResponse {
   request_id: string;
