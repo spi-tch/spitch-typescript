@@ -24,10 +24,9 @@ import Spitch from 'spitch';
 
 const client = new Spitch();
 
-const response = await client.speech.generate({ language: 'yo', text: 'text', voice: 'sade' });
+const response = await client.speech.transcribe({ language: 'yo' });
 
-const content = await response.blob();
-console.log(content);
+console.log(response.request_id);
 ```
 
 ### Request & Response types
@@ -253,7 +252,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.speech.generate({
+client.speech.transcribe({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
