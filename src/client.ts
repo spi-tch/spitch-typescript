@@ -19,6 +19,7 @@ import { APIPromise } from './core/api-promise';
 import {
   Speech,
   SpeechGenerateParams,
+  SpeechGenerateResponse,
   SpeechTranscribeParams,
   SpeechTranscribeResponse,
 } from './resources/speech';
@@ -736,6 +737,7 @@ export declare namespace Spitch {
 
   export {
     Speech as Speech,
+    type SpeechGenerateResponse as SpeechGenerateResponse,
     type SpeechTranscribeResponse as SpeechTranscribeResponse,
     type SpeechGenerateParams as SpeechGenerateParams,
     type SpeechTranscribeParams as SpeechTranscribeParams,
