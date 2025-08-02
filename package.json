@@ -2,7 +2,7 @@
   "name": "spitch",
   "version": "0.1.0-alpha.1",
   "description": "The official TypeScript library for the Spitch API",
-  "author": "Spitch <dev@spitch.app>",
+  "author": "Spitch <developer@spitch.app>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "type": "commonjs",
