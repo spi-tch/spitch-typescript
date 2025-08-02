@@ -25,9 +25,6 @@ import Spitch from 'spitch';
 const client = new Spitch();
 
 const response = await client.speech.generate({ language: 'yo', text: 'text', voice: 'sade' });
-
-const content = await response.blob();
-console.log(content);
 ```
 
 ### Request & Response types
@@ -41,7 +38,7 @@ import Spitch from 'spitch';
 const client = new Spitch();
 
 const params: Spitch.SpeechGenerateParams = { language: 'yo', text: 'text', voice: 'sade' };
-const response: Response = await client.speech.generate(params);
+const response: unknown = await client.speech.generate(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.

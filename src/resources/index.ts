@@ -2,6 +2,7 @@
 
 export {
   Speech,
+  type SpeechGenerateResponse,
   type SpeechTranscribeResponse,
   type SpeechGenerateParams,
   type SpeechTranscribeParams,

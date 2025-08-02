@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.19.0 (2025-08-02)
+
+Full Changelog: [v1.18.0...v1.19.0](https://github.com/spi-tch/spitch-typescript/compare/v1.18.0...v1.19.0)
+
+### Features
+
+* **api:** update via SDK Studio ([737a0bc](https://github.com/spi-tch/spitch-typescript/commit/737a0bc7b4b28723e725474844fa85bfc926e092))
+* **api:** update via SDK Studio ([2e7d18d](https://github.com/spi-tch/spitch-typescript/commit/2e7d18d58f7263095303fc6e809289fe45674f80))
+
 ## 1.18.0 (2025-08-02)
 
 Full Changelog: [v1.17.0...v1.18.0](https://github.com/spi-tch/spitch-typescript/compare/v1.17.0...v1.18.0)
