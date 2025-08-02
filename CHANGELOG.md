@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.17.0 (2025-08-02)
+
+Full Changelog: [v0.1.0-alpha.1...v1.17.0](https://github.com/spi-tch/spitch-typescript/compare/v0.1.0-alpha.1...v1.17.0)
+
+### Features
+
+* **api:** update via SDK Studio ([f73d00e](https://github.com/spi-tch/spitch-typescript/commit/f73d00ee3d5701d1f1904402353ef7f70c70f93d))
+
 ## 0.1.0-alpha.1 (2025-08-01)
 
 Full Changelog: [v0.0.1-alpha.0...v0.1.0-alpha.1](https://github.com/spi-tch/spitch-typescript/compare/v0.0.1-alpha.0...v0.1.0-alpha.1)
