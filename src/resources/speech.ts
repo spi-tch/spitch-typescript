@@ -3,6 +3,7 @@
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { type Uploadable } from '../core/uploads';
+import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { multipartFormRequestOptions } from '../internal/uploads';
 
@@ -10,8 +11,13 @@ export class Speech extends APIResource {
   /**
    * Synthesize
    */
-  generate(body: SpeechGenerateParams, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.post('/v1/speech', { body, ...options });
+  generate(body: SpeechGenerateParams, options?: RequestOptions): APIPromise<Response> {
+    return this._client.post('/v1/speech', {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: 'audio/wav' }, options?.headers]),
+      __binaryResponse: true,
+    });
   }
 
   /**
@@ -24,8 +30,6 @@ export class Speech extends APIResource {
     );
   }
 }
-
-export type SpeechGenerateResponse = unknown;
 
 export interface SpeechTranscribeResponse {
   request_id: string;
@@ -93,7 +97,6 @@ export interface SpeechTranscribeParams {
 
 export declare namespace Speech {
   export {
-    type SpeechGenerateResponse as SpeechGenerateResponse,
     type SpeechTranscribeResponse as SpeechTranscribeResponse,
     type SpeechGenerateParams as SpeechGenerateParams,
     type SpeechTranscribeParams as SpeechTranscribeParams,
