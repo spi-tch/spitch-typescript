@@ -22,7 +22,9 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Spitch from 'spitch';
 
-const client = new Spitch();
+const client = new Spitch({
+  apiKey: process.env['SPITCH_API_KEY'], // This is the default and can be omitted
+});
 
 const response = await client.speech.generate({ language: 'yo', text: 'text', voice: 'sade' });
 
@@ -38,7 +40,9 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Spitch from 'spitch';
 
-const client = new Spitch();
+const client = new Spitch({
+  apiKey: process.env['SPITCH_API_KEY'], // This is the default and can be omitted
+});
 
 const params: Spitch.SpeechGenerateParams = { language: 'yo', text: 'text', voice: 'sade' };
 const response: Response = await client.speech.generate(params);
