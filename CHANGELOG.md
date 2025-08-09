@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.20.1 (2025-08-09)
+
+Full Changelog: [v1.20.0...v1.20.1](https://github.com/spi-tch/spitch-typescript/compare/v1.20.0...v1.20.1)
+
+### Chores
+
+* **internal:** move publish config ([15772f8](https://github.com/spi-tch/spitch-typescript/commit/15772f835873ad104e3504b12c709007861f2b7b))
+* update @stainless-api/prism-cli to v5.15.0 ([713f52f](https://github.com/spi-tch/spitch-typescript/commit/713f52f4560577146691dd90d279527dac374758))
+
 ## 1.20.0 (2025-08-05)
 
 Full Changelog: [v1.19.0...v1.20.0](https://github.com/spi-tch/spitch-typescript/compare/v1.19.0...v1.20.0)
