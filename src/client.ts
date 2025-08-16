@@ -729,8 +729,10 @@ export class Spitch {
   speech: API.Speech = new API.Speech(this);
   text: API.Text = new API.Text(this);
 }
+
 Spitch.Speech = Speech;
 Spitch.Text = Text;
+
 export declare namespace Spitch {
   export type RequestOptions = Opts.RequestOptions;
 
