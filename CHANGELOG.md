@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.21.0 (2025-08-23)
+
+Full Changelog: [v1.20.0...v1.21.0](https://github.com/spi-tch/spitch-typescript/compare/v1.20.0...v1.21.0)
+
+### Features
+
+* **mcp:** add code execution tool ([55bc242](https://github.com/spi-tch/spitch-typescript/commit/55bc24205bb40ecd7ab8beaeeaadf6535d9a6e26))
+
+
+### Chores
+
+* add package to package.json ([e4ba97c](https://github.com/spi-tch/spitch-typescript/commit/e4ba97c32afcb63f0488ccb36417918dd7751df4))
+* **client:** qualify global Blob ([70bb145](https://github.com/spi-tch/spitch-typescript/commit/70bb145b3ececf52e6db3d39950e206b54bd3103))
+* **deps:** update dependency @types/node to v20.17.58 ([17808c2](https://github.com/spi-tch/spitch-typescript/commit/17808c2471731fa46d20b5bd5dae8ebe84fa5a24))
+* **internal:** formatting change ([4fd6637](https://github.com/spi-tch/spitch-typescript/commit/4fd663737cd1557a2cb3832996570ef0fed28022))
+* **internal:** move publish config ([15772f8](https://github.com/spi-tch/spitch-typescript/commit/15772f835873ad104e3504b12c709007861f2b7b))
+* **internal:** update comment in script ([ea96346](https://github.com/spi-tch/spitch-typescript/commit/ea9634659b75e456774f635a7fafbfbcdd43edc9))
+* update @stainless-api/prism-cli to v5.15.0 ([713f52f](https://github.com/spi-tch/spitch-typescript/commit/713f52f4560577146691dd90d279527dac374758))
+* update CI script ([d9baaca](https://github.com/spi-tch/spitch-typescript/commit/d9baacaf0ab78e10530b0aac749a7043fc9d56e7))
+
 ## 1.20.0 (2025-08-05)
 
 Full Changelog: [v1.19.0...v1.20.0](https://github.com/spi-tch/spitch-typescript/compare/v1.19.0...v1.20.0)
