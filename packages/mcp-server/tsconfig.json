@@ -7,10 +7,9 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "baseUrl": "./",
     "paths": {
-      "spitch-mcp/*": ["src/*"],
-      "spitch-mcp": ["src/index.ts"]
+      "spitch-mcp/*": ["./src/*"],
+      "spitch-mcp": ["./src/index.ts"]
     },
     "noEmit": true,
 
