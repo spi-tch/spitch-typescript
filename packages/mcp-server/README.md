@@ -228,3 +228,12 @@ The following tools are available in this MCP server.
 
 - `tone_mark_text` (`write`): Tone Mark
 - `translate_text` (`write`): Translate
+
+### Resource `files`:
+
+- `list_files` (`read`): Get Files
+- `delete_files` (`write`): Delete File
+- `download_files` (`read`): Download File
+- `get_files` (`read`): Get File
+- `upload_files` (`write`): Upload File
+- `usage_files` (`read`): Get Usage

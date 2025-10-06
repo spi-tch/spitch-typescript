@@ -17,6 +17,18 @@ import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
 import {
+  FileDeleteResponse,
+  FileDownloadParams,
+  FileDownloadResponse,
+  FileGetResponse,
+  FileListParams,
+  FileListResponse,
+  FileUploadParams,
+  FileUploadResponse,
+  FileUsageResponse,
+  Files,
+} from './resources/files';
+import {
   Speech,
   SpeechGenerateParams,
   SpeechTranscribeParams,
@@ -728,10 +740,12 @@ export class Spitch {
 
   speech: API.Speech = new API.Speech(this);
   text: API.Text = new API.Text(this);
+  files: API.Files = new API.Files(this);
 }
 
 Spitch.Speech = Speech;
 Spitch.Text = Text;
+Spitch.Files = Files;
 
 export declare namespace Spitch {
   export type RequestOptions = Opts.RequestOptions;
@@ -749,5 +763,18 @@ export declare namespace Spitch {
     type TextTranslateResponse as TextTranslateResponse,
     type TextToneMarkParams as TextToneMarkParams,
     type TextTranslateParams as TextTranslateParams,
+  };
+
+  export {
+    Files as Files,
+    type FileListResponse as FileListResponse,
+    type FileDeleteResponse as FileDeleteResponse,
+    type FileDownloadResponse as FileDownloadResponse,
+    type FileGetResponse as FileGetResponse,
+    type FileUploadResponse as FileUploadResponse,
+    type FileUsageResponse as FileUsageResponse,
+    type FileListParams as FileListParams,
+    type FileDownloadParams as FileDownloadParams,
+    type FileUploadParams as FileUploadParams,
   };
 }

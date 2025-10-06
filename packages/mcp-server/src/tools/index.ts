@@ -8,6 +8,12 @@ import generate_speech from './speech/generate-speech';
 import transcribe_speech from './speech/transcribe-speech';
 import tone_mark_text from './text/tone-mark-text';
 import translate_text from './text/translate-text';
+import list_files from './files/list-files';
+import delete_files from './files/delete-files';
+import download_files from './files/download-files';
+import get_files from './files/get-files';
+import upload_files from './files/upload-files';
+import usage_files from './files/usage-files';
 
 export const endpoints: Endpoint[] = [];
 
@@ -19,6 +25,12 @@ addEndpoint(generate_speech);
 addEndpoint(transcribe_speech);
 addEndpoint(tone_mark_text);
 addEndpoint(translate_text);
+addEndpoint(list_files);
+addEndpoint(delete_files);
+addEndpoint(download_files);
+addEndpoint(get_files);
+addEndpoint(upload_files);
+addEndpoint(usage_files);
 
 export type Filter = {
   type: 'resource' | 'operation' | 'tag' | 'tool';
