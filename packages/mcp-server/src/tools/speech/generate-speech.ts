@@ -57,6 +57,11 @@ export const tool: Tool = {
           'tesfaye',
         ],
       },
+      format: {
+        type: 'string',
+        title: 'Audio Format',
+        enum: ['wav', 'mp3', 'ogg_opus', 'webm_opus', 'flac', 'pcm_s16le', 'mulaw', 'alaw'],
+      },
       model: {
         type: 'string',
         title: 'TTSModelEnum',

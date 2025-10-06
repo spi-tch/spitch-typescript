@@ -26,8 +26,8 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/files.ts">File</a></code>
-- <code><a href="./src/resources/files.ts">Files</a></code>
 - <code><a href="./src/resources/files.ts">FileUsage</a></code>
+- <code><a href="./src/resources/files.ts">Files</a></code>
 - <code><a href="./src/resources/files.ts">FileDeleteResponse</a></code>
 - <code><a href="./src/resources/files.ts">FileDownloadResponse</a></code>
 

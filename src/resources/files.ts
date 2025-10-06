@@ -79,12 +79,6 @@ export interface File {
   uploaded_by: string | null;
 }
 
-export interface Files {
-  items: Array<File>;
-
-  next_cursor?: string | null;
-}
-
 export interface FileUsage {
   num_files: number;
 
@@ -95,6 +89,12 @@ export interface FileUsage {
   used: string;
 
   used_bytes: number;
+}
+
+export interface Files {
+  items: Array<File>;
+
+  next_cursor?: string | null;
 }
 
 export interface FileDeleteResponse {
@@ -124,8 +124,8 @@ export interface FileUploadParams {
 export declare namespace Files {
   export {
     type File as File,
-    type Files as Files,
     type FileUsage as FileUsage,
+    type Files as Files,
     type FileDeleteResponse as FileDeleteResponse,
     type FileDownloadResponse as FileDownloadResponse,
     type FilesFilesCursor as FilesFilesCursor,
