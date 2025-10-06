@@ -23,7 +23,7 @@ export class Speech extends APIResource {
   /**
    * Transcribe
    */
-  transcribe(body: SpeechTranscribeParams, options?: RequestOptions): APIPromise<SpeechTranscribeResponse> {
+  transcribe(body: SpeechTranscribeParams, options?: RequestOptions): APIPromise<Transcription> {
     return this._client.post(
       '/v1/transcriptions',
       multipartFormRequestOptions({ body, ...options }, this._client),
@@ -31,15 +31,15 @@ export class Speech extends APIResource {
   }
 }
 
-export interface SpeechTranscribeResponse {
+export interface Transcription {
   request_id: string;
 
   text: string;
 
-  timestamps?: Array<SpeechTranscribeResponse.Timestamp> | null;
+  timestamps?: Array<Transcription.Timestamp> | null;
 }
 
-export namespace SpeechTranscribeResponse {
+export namespace Transcription {
   export interface Timestamp {
     end: number;
 
@@ -97,7 +97,7 @@ export interface SpeechTranscribeParams {
 
 export declare namespace Speech {
   export {
-    type SpeechTranscribeResponse as SpeechTranscribeResponse,
+    type Transcription as Transcription,
     type SpeechGenerateParams as SpeechGenerateParams,
     type SpeechTranscribeParams as SpeechTranscribeParams,
   };

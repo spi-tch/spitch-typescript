@@ -13,22 +13,14 @@ import * as Shims from './internal/shims';
 import * as Opts from './internal/request-options';
 import { VERSION } from './version';
 import * as Errors from './core/error';
+import * as Pagination from './core/pagination';
+import { AbstractPage, type FilesCursorParams, FilesCursorResponse } from './core/pagination';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import {
-  Speech,
-  SpeechGenerateParams,
-  SpeechTranscribeParams,
-  SpeechTranscribeResponse,
-} from './resources/speech';
-import {
-  Text,
-  TextToneMarkParams,
-  TextToneMarkResponse,
-  TextTranslateParams,
-  TextTranslateResponse,
-} from './resources/text';
+import { Files } from './resources/files';
+import { Speech, SpeechGenerateParams, SpeechTranscribeParams, Transcription } from './resources/speech';
+import { Diacritics, Text, TextToneMarkParams, TextTranslateParams, Translation } from './resources/text';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -494,6 +486,25 @@ export class Spitch {
     return { response, options, controller, requestLogID, retryOfRequestLogID, startTime };
   }
 
+  getAPIList<Item, PageClass extends Pagination.AbstractPage<Item> = Pagination.AbstractPage<Item>>(
+    path: string,
+    Page: new (...args: any[]) => PageClass,
+    opts?: RequestOptions,
+  ): Pagination.PagePromise<PageClass, Item> {
+    return this.requestAPIList(Page, { method: 'get', path, ...opts });
+  }
+
+  requestAPIList<
+    Item = unknown,
+    PageClass extends Pagination.AbstractPage<Item> = Pagination.AbstractPage<Item>,
+  >(
+    Page: new (...args: ConstructorParameters<typeof Pagination.AbstractPage>) => PageClass,
+    options: FinalRequestOptions,
+  ): Pagination.PagePromise<PageClass, Item> {
+    const request = this.makeRequest(options, null, undefined);
+    return new Pagination.PagePromise<PageClass, Item>(this as any as Spitch, request, Page);
+  }
+
   async fetchWithTimeout(
     url: RequestInfo,
     init: RequestInit | undefined,
@@ -728,26 +739,33 @@ export class Spitch {
 
   speech: API.Speech = new API.Speech(this);
   text: API.Text = new API.Text(this);
+  files: API.Files = new API.Files(this);
 }
 
 Spitch.Speech = Speech;
 Spitch.Text = Text;
+Spitch.Files = Files;
 
 export declare namespace Spitch {
   export type RequestOptions = Opts.RequestOptions;
 
+  export import FilesCursor = Pagination.FilesCursor;
+  export { type FilesCursorParams as FilesCursorParams, type FilesCursorResponse as FilesCursorResponse };
+
   export {
     Speech as Speech,
-    type SpeechTranscribeResponse as SpeechTranscribeResponse,
+    type Transcription as Transcription,
     type SpeechGenerateParams as SpeechGenerateParams,
     type SpeechTranscribeParams as SpeechTranscribeParams,
   };
 
   export {
     Text as Text,
-    type TextToneMarkResponse as TextToneMarkResponse,
-    type TextTranslateResponse as TextTranslateResponse,
+    type Diacritics as Diacritics,
+    type Translation as Translation,
     type TextToneMarkParams as TextToneMarkParams,
     type TextTranslateParams as TextTranslateParams,
   };
+
+  export { Files as Files };
 }
