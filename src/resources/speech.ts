@@ -23,7 +23,7 @@ export class Speech extends APIResource {
   /**
    * Transcribe
    */
-  transcribe(body: SpeechTranscribeParams, options?: RequestOptions): APIPromise<SpeechTranscribeResponse> {
+  transcribe(body: SpeechTranscribeParams, options?: RequestOptions): APIPromise<Transcription> {
     return this._client.post(
       '/v1/transcriptions',
       multipartFormRequestOptions({ body, ...options }, this._client),
@@ -31,15 +31,15 @@ export class Speech extends APIResource {
   }
 }
 
-export interface SpeechTranscribeResponse {
+export interface Transcription {
   request_id: string;
 
   text: string;
 
-  timestamps?: Array<SpeechTranscribeResponse.Timestamp> | null;
+  timestamps?: Array<Transcription.Timestamp> | null;
 }
 
-export namespace SpeechTranscribeResponse {
+export namespace Transcription {
   export interface Timestamp {
     end: number;
 
@@ -78,6 +78,8 @@ export interface SpeechGenerateParams {
     | 'tena'
     | 'tesfaye';
 
+  format?: 'wav' | 'mp3' | 'ogg_opus' | 'webm_opus' | 'flac' | 'pcm_s16le' | 'mulaw' | 'alaw';
+
   model?: 'legacy' | null;
 }
 
@@ -86,7 +88,7 @@ export interface SpeechTranscribeParams {
 
   content?: Uploadable | null;
 
-  model?: 'mansa_v1' | 'legacy' | null;
+  model?: 'mansa_v1' | 'legacy' | 'human' | null;
 
   special_words?: string | null;
 
@@ -97,7 +99,7 @@ export interface SpeechTranscribeParams {
 
 export declare namespace Speech {
   export {
-    type SpeechTranscribeResponse as SpeechTranscribeResponse,
+    type Transcription as Transcription,
     type SpeechGenerateParams as SpeechGenerateParams,
     type SpeechTranscribeParams as SpeechTranscribeParams,
   };

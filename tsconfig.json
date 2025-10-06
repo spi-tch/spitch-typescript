@@ -7,10 +7,9 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "baseUrl": "./",
     "paths": {
-      "spitch/*": ["src/*"],
-      "spitch": ["src/index.ts"]
+      "spitch/*": ["./src/*"],
+      "spitch": ["./src/index.ts"]
     },
     "noEmit": true,
 

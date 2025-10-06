@@ -26,7 +26,7 @@ const client = new Spitch({
   apiKey: process.env['SPITCH_API_KEY'], // This is the default and can be omitted
 });
 
-const response = await client.speech.generate({ language: 'yo', text: 'text', voice: 'sade' });
+const response = await client.speech.generate({ language: 'yo', text: 'Bawo ni, ololufe?', voice: 'femi' });
 
 const content = await response.blob();
 console.log(content);
@@ -44,7 +44,7 @@ const client = new Spitch({
   apiKey: process.env['SPITCH_API_KEY'], // This is the default and can be omitted
 });
 
-const params: Spitch.SpeechGenerateParams = { language: 'yo', text: 'text', voice: 'sade' };
+const params: Spitch.SpeechGenerateParams = { language: 'yo', text: 'Bawo ni, ololufe?', voice: 'sade' };
 const response: Response = await client.speech.generate(params);
 ```
 
@@ -88,7 +88,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 const response = await client.speech
-  .generate({ language: 'yo', text: 'text', voice: 'sade' })
+  .generate({ language: 'yo', text: 'Bawo ni, ololufe?', voice: 'sade' })
   .catch(async (err) => {
     if (err instanceof Spitch.APIError) {
       console.log(err.status); // 400
@@ -129,7 +129,7 @@ const client = new Spitch({
 });
 
 // Or, configure per-request:
-await client.speech.generate({ language: 'yo', text: 'text', voice: 'sade' }, {
+await client.speech.generate({ language: 'yo', text: 'Bawo ni, ololufe?', voice: 'sade' }, {
   maxRetries: 5,
 });
 ```
@@ -146,7 +146,7 @@ const client = new Spitch({
 });
 
 // Override per-request:
-await client.speech.generate({ language: 'yo', text: 'text', voice: 'sade' }, {
+await client.speech.generate({ language: 'yo', text: 'Bawo ni, ololufe?', voice: 'sade' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -154,6 +154,37 @@ await client.speech.generate({ language: 'yo', text: 'text', voice: 'sade' }, {
 On timeout, an `APIConnectionTimeoutError` is thrown.
 
 Note that requests which time out will be [retried twice by default](#retries).
+
+## Auto-pagination
+
+List methods in the Spitch API are paginated.
+You can use the `for await … of` syntax to iterate through items across all pages:
+
+```ts
+async function fetchAllFiles(params) {
+  const allFiles = [];
+  // Automatically fetches more pages as needed.
+  for await (const file of client.files.list({ limit: 10 })) {
+    allFiles.push(file);
+  }
+  return allFiles;
+}
+```
+
+Alternatively, you can request a single page at a time:
+
+```ts
+let page = await client.files.list({ limit: 10 });
+for (const file of page.items) {
+  console.log(file);
+}
+
+// Convenience methods are provided for manually paginating:
+while (page.hasNextPage()) {
+  page = await page.getNextPage();
+  // ...
+}
+```
 
 ## Advanced Usage
 
@@ -169,12 +200,14 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new Spitch();
 
-const response = await client.speech.generate({ language: 'yo', text: 'text', voice: 'sade' }).asResponse();
+const response = await client.speech
+  .generate({ language: 'yo', text: 'Bawo ni, ololufe?', voice: 'sade' })
+  .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: response, response: raw } = await client.speech
-  .generate({ language: 'yo', text: 'text', voice: 'sade' })
+  .generate({ language: 'yo', text: 'Bawo ni, ololufe?', voice: 'sade' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(response);
@@ -367,7 +400,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/spi-tch/spitch-typescript/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/spit-tch/spitch-typescript/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 

@@ -13,22 +13,24 @@ import * as Shims from './internal/shims';
 import * as Opts from './internal/request-options';
 import { VERSION } from './version';
 import * as Errors from './core/error';
+import * as Pagination from './core/pagination';
+import { AbstractPage, type FilesCursorParams, FilesCursorResponse } from './core/pagination';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
 import {
-  Speech,
-  SpeechGenerateParams,
-  SpeechTranscribeParams,
-  SpeechTranscribeResponse,
-} from './resources/speech';
-import {
-  Text,
-  TextToneMarkParams,
-  TextToneMarkResponse,
-  TextTranslateParams,
-  TextTranslateResponse,
-} from './resources/text';
+  File,
+  FileDeleteResponse,
+  FileDownloadParams,
+  FileDownloadResponse,
+  FileListParams,
+  FileUploadParams,
+  FileUsage,
+  Files,
+  FilesFilesCursor,
+} from './resources/files';
+import { Speech, SpeechGenerateParams, SpeechTranscribeParams, Transcription } from './resources/speech';
+import { Diacritics, Text, TextToneMarkParams, TextTranslateParams, Translation } from './resources/text';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -380,7 +382,7 @@ export class Spitch {
     const response = await this.fetchWithTimeout(url, req, timeout, controller).catch(castToError);
     const headersTime = Date.now();
 
-    if (response instanceof Error) {
+    if (response instanceof globalThis.Error) {
       const retryMessage = `retrying, ${retriesRemaining} attempts remaining`;
       if (options.signal?.aborted) {
         throw new Errors.APIUserAbortError();
@@ -492,6 +494,25 @@ export class Spitch {
     );
 
     return { response, options, controller, requestLogID, retryOfRequestLogID, startTime };
+  }
+
+  getAPIList<Item, PageClass extends Pagination.AbstractPage<Item> = Pagination.AbstractPage<Item>>(
+    path: string,
+    Page: new (...args: any[]) => PageClass,
+    opts?: RequestOptions,
+  ): Pagination.PagePromise<PageClass, Item> {
+    return this.requestAPIList(Page, { method: 'get', path, ...opts });
+  }
+
+  requestAPIList<
+    Item = unknown,
+    PageClass extends Pagination.AbstractPage<Item> = Pagination.AbstractPage<Item>,
+  >(
+    Page: new (...args: ConstructorParameters<typeof Pagination.AbstractPage>) => PageClass,
+    options: FinalRequestOptions,
+  ): Pagination.PagePromise<PageClass, Item> {
+    const request = this.makeRequest(options, null, undefined);
+    return new Pagination.PagePromise<PageClass, Item>(this as any as Spitch, request, Page);
   }
 
   async fetchWithTimeout(
@@ -687,7 +708,7 @@ export class Spitch {
         // Preserve legacy string encoding behavior for now
         headers.values.has('content-type')) ||
       // `Blob` is superset of `File`
-      body instanceof Blob ||
+      ((globalThis as any).Blob && body instanceof (globalThis as any).Blob) ||
       // `FormData` -> `multipart/form-data`
       body instanceof FormData ||
       // `URLSearchParams` -> `application/x-www-form-urlencoded`
@@ -728,24 +749,42 @@ export class Spitch {
 
   speech: API.Speech = new API.Speech(this);
   text: API.Text = new API.Text(this);
+  files: API.Files = new API.Files(this);
 }
+
 Spitch.Speech = Speech;
 Spitch.Text = Text;
+
 export declare namespace Spitch {
   export type RequestOptions = Opts.RequestOptions;
 
+  export import FilesCursor = Pagination.FilesCursor;
+  export { type FilesCursorParams as FilesCursorParams, type FilesCursorResponse as FilesCursorResponse };
+
   export {
     Speech as Speech,
-    type SpeechTranscribeResponse as SpeechTranscribeResponse,
+    type Transcription as Transcription,
     type SpeechGenerateParams as SpeechGenerateParams,
     type SpeechTranscribeParams as SpeechTranscribeParams,
   };
 
   export {
     Text as Text,
-    type TextToneMarkResponse as TextToneMarkResponse,
-    type TextTranslateResponse as TextTranslateResponse,
+    type Diacritics as Diacritics,
+    type Translation as Translation,
     type TextToneMarkParams as TextToneMarkParams,
     type TextTranslateParams as TextTranslateParams,
+  };
+
+  export {
+    type Files as Files,
+    type File as File,
+    type FileUsage as FileUsage,
+    type FileDeleteResponse as FileDeleteResponse,
+    type FileDownloadResponse as FileDownloadResponse,
+    type FilesFilesCursor as FilesFilesCursor,
+    type FileListParams as FileListParams,
+    type FileDownloadParams as FileDownloadParams,
+    type FileUploadParams as FileUploadParams,
   };
 }
