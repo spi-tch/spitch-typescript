@@ -78,6 +78,8 @@ export interface SpeechGenerateParams {
     | 'tena'
     | 'tesfaye';
 
+  format?: 'wav' | 'mp3' | 'ogg_opus' | 'webm_opus' | 'flac' | 'pcm_s16le' | 'mulaw' | 'alaw';
+
   model?: 'legacy' | null;
 }
 
@@ -86,7 +88,7 @@ export interface SpeechTranscribeParams {
 
   content?: Uploadable | null;
 
-  model?: 'mansa_v1' | 'legacy' | null;
+  model?: 'mansa_v1' | 'legacy' | 'human' | null;
 
   special_words?: string | null;
 

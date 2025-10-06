@@ -18,7 +18,17 @@ import { AbstractPage, type FilesCursorParams, FilesCursorResponse } from './cor
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import { Files } from './resources/files';
+import {
+  File,
+  FileDeleteResponse,
+  FileDownloadParams,
+  FileDownloadResponse,
+  FileListParams,
+  FileUploadParams,
+  FileUsage,
+  Files,
+  FilesFilesCursor,
+} from './resources/files';
 import { Speech, SpeechGenerateParams, SpeechTranscribeParams, Transcription } from './resources/speech';
 import { Diacritics, Text, TextToneMarkParams, TextTranslateParams, Translation } from './resources/text';
 import { type Fetch } from './internal/builtin-types';
@@ -744,7 +754,6 @@ export class Spitch {
 
 Spitch.Speech = Speech;
 Spitch.Text = Text;
-Spitch.Files = Files;
 
 export declare namespace Spitch {
   export type RequestOptions = Opts.RequestOptions;
@@ -767,5 +776,15 @@ export declare namespace Spitch {
     type TextTranslateParams as TextTranslateParams,
   };
 
-  export { Files as Files };
+  export {
+    type Files as Files,
+    type File as File,
+    type FileUsage as FileUsage,
+    type FileDeleteResponse as FileDeleteResponse,
+    type FileDownloadResponse as FileDownloadResponse,
+    type FilesFilesCursor as FilesFilesCursor,
+    type FileListParams as FileListParams,
+    type FileDownloadParams as FileDownloadParams,
+    type FileUploadParams as FileUploadParams,
+  };
 }
