@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'transcribe_speech',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nTranscribe\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'Transcription',\n  properties: {\n    request_id: {\n      type: 'string',\n      title: 'Request Id'\n    },\n    text: {\n      type: 'string',\n      title: 'Text'\n    },\n    timestamps: {\n      type: 'array',\n      title: 'Timestamps',\n      items: {\n        type: 'object',\n        title: 'TimeStamp',\n        properties: {\n          end: {\n            type: 'number',\n            title: 'End'\n          },\n          start: {\n            type: 'number',\n            title: 'Start'\n          },\n          text: {\n            type: 'string',\n            title: 'Text'\n          }\n        },\n        required: [          'end',\n          'start',\n          'text'\n        ]\n      }\n    }\n  },\n  required: [    'request_id',\n    'text'\n  ]\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nTranscribe\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/transcription',\n  $defs: {\n    transcription: {\n      type: 'object',\n      title: 'Transcription',\n      properties: {\n        request_id: {\n          type: 'string',\n          title: 'Request Id'\n        },\n        text: {\n          type: 'string',\n          title: 'Text'\n        },\n        timestamps: {\n          type: 'array',\n          title: 'Timestamps',\n          items: {\n            type: 'object',\n            title: 'TimeStamp',\n            properties: {\n              end: {\n                type: 'number',\n                title: 'End'\n              },\n              start: {\n                type: 'number',\n                title: 'Start'\n              },\n              text: {\n                type: 'string',\n                title: 'Text'\n              }\n            },\n            required: [              'end',\n              'start',\n              'text'\n            ]\n          }\n        }\n      },\n      required: [        'request_id',\n        'text'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
@@ -34,7 +34,7 @@ export const tool: Tool = {
       model: {
         type: 'string',
         title: 'STTModelEnum',
-        enum: ['mansa_v1', 'legacy'],
+        enum: ['mansa_v1', 'legacy', 'human'],
       },
       special_words: {
         type: 'string',

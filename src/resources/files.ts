@@ -15,8 +15,8 @@ export class Files extends APIResource {
   list(
     query: FileListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<FileListResponsesFilesCursor, FileListResponse> {
-    return this._client.getAPIList('/v1/files', FilesCursor<FileListResponse>, { query, ...options });
+  ): PagePromise<FilesFilesCursor, File> {
+    return this._client.getAPIList('/v1/files', FilesCursor<File>, { query, ...options });
   }
 
   /**
@@ -33,35 +33,35 @@ export class Files extends APIResource {
     fileID: string,
     query: FileDownloadParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<unknown> {
+  ): APIPromise<FileDownloadResponse> {
     return this._client.get(path`/v1/files/${fileID}/url`, { query, ...options });
   }
 
   /**
    * Get File
    */
-  get(fileID: string, options?: RequestOptions): APIPromise<FileGetResponse> {
+  get(fileID: string, options?: RequestOptions): APIPromise<File> {
     return this._client.get(path`/v1/files/${fileID}`, options);
   }
 
   /**
    * Upload File
    */
-  upload(body: FileUploadParams, options?: RequestOptions): APIPromise<FileUploadResponse> {
+  upload(body: FileUploadParams, options?: RequestOptions): APIPromise<File> {
     return this._client.post('/v1/files', multipartFormRequestOptions({ body, ...options }, this._client));
   }
 
   /**
    * Get Usage
    */
-  usage(options?: RequestOptions): APIPromise<unknown> {
+  usage(options?: RequestOptions): APIPromise<FileUsage> {
     return this._client.get('/v1/files:usage', options);
   }
 }
 
-export type FileListResponsesFilesCursor = FilesCursor<FileListResponse>;
+export type FilesFilesCursor = FilesCursor<File>;
 
-export interface FileListResponse {
+export interface File {
   category: string | null;
 
   content_type: string | null;
@@ -75,47 +75,39 @@ export interface FileListResponse {
   size_bytes: number | null;
 
   status: string;
+
+  uploaded_by: string | null;
+}
+
+export interface Files {
+  items: Array<File>;
+
+  next_cursor?: string | null;
+}
+
+export interface FileUsage {
+  num_files: number;
+
+  total: string;
+
+  total_bytes: number;
+
+  used: string;
+
+  used_bytes: number;
 }
 
 export interface FileDeleteResponse {
   status?: boolean;
 }
 
-export type FileDownloadResponse = unknown;
-
-export interface FileGetResponse {
-  category: string | null;
-
-  content_type: string | null;
-
-  created_at: string;
+export interface FileDownloadResponse {
+  expires_at: string;
 
   file_id: string;
 
-  original_name: string | null;
-
-  size_bytes: number | null;
-
-  status: string;
+  url: string;
 }
-
-export interface FileUploadResponse {
-  category: string | null;
-
-  content_type: string | null;
-
-  created_at: string;
-
-  file_id: string;
-
-  original_name: string | null;
-
-  size_bytes: number | null;
-
-  status: string;
-}
-
-export type FileUsageResponse = unknown;
 
 export interface FileListParams extends FilesCursorParams {
   status?: 'uploading' | 'ready' | null;
@@ -131,13 +123,12 @@ export interface FileUploadParams {
 
 export declare namespace Files {
   export {
-    type FileListResponse as FileListResponse,
+    type File as File,
+    type Files as Files,
+    type FileUsage as FileUsage,
     type FileDeleteResponse as FileDeleteResponse,
     type FileDownloadResponse as FileDownloadResponse,
-    type FileGetResponse as FileGetResponse,
-    type FileUploadResponse as FileUploadResponse,
-    type FileUsageResponse as FileUsageResponse,
-    type FileListResponsesFilesCursor as FileListResponsesFilesCursor,
+    type FilesFilesCursor as FilesFilesCursor,
     type FileListParams as FileListParams,
     type FileDownloadParams as FileDownloadParams,
     type FileUploadParams as FileUploadParams,

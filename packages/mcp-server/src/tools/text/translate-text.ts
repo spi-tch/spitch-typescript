@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'translate_text',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nTranslate\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'Translation',\n  properties: {\n    request_id: {\n      type: 'string',\n      title: 'Request Id'\n    },\n    text: {\n      type: 'string',\n      title: 'Text'\n    }\n  },\n  required: [    'request_id',\n    'text'\n  ]\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nTranslate\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/translation',\n  $defs: {\n    translation: {\n      type: 'object',\n      title: 'Translation',\n      properties: {\n        request_id: {\n          type: 'string',\n          title: 'Request Id'\n        },\n        text: {\n          type: 'string',\n          title: 'Text'\n        }\n      },\n      required: [        'request_id',\n        'text'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
