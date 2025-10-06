@@ -11,6 +11,7 @@ export {
   type FileListParams,
   type FileDownloadParams,
   type FileUploadParams,
+  type FileListResponsesFilesCursor,
 } from './files';
 export {
   Speech,

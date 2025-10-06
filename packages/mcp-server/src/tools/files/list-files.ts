@@ -51,7 +51,8 @@ export const tool: Tool = {
 
 export const handler = async (client: Spitch, args: Record<string, unknown> | undefined) => {
   const { jq_filter, ...body } = args as any;
-  return asTextContentResult(await maybeFilter(jq_filter, await client.files.list(body)));
+  const response = await client.files.list(body).asResponse();
+  return asTextContentResult(await maybeFilter(jq_filter, await response.json()));
 };
 
 export default { metadata, tool, handler };
