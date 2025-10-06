@@ -8,25 +8,25 @@ export class Text extends APIResource {
   /**
    * Tone Mark
    */
-  toneMark(body: TextToneMarkParams, options?: RequestOptions): APIPromise<TextToneMarkResponse> {
+  toneMark(body: TextToneMarkParams, options?: RequestOptions): APIPromise<Diacritics> {
     return this._client.post('/v1/diacritics', { body, ...options });
   }
 
   /**
    * Translate
    */
-  translate(body: TextTranslateParams, options?: RequestOptions): APIPromise<TextTranslateResponse> {
+  translate(body: TextTranslateParams, options?: RequestOptions): APIPromise<Translation> {
     return this._client.post('/v1/translate', { body, ...options });
   }
 }
 
-export interface TextToneMarkResponse {
+export interface Diacritics {
   request_id: string;
 
   text: string;
 }
 
-export interface TextTranslateResponse {
+export interface Translation {
   request_id: string;
 
   text: string;
@@ -48,8 +48,8 @@ export interface TextTranslateParams {
 
 export declare namespace Text {
   export {
-    type TextToneMarkResponse as TextToneMarkResponse,
-    type TextTranslateResponse as TextTranslateResponse,
+    type Diacritics as Diacritics,
+    type Translation as Translation,
     type TextToneMarkParams as TextToneMarkParams,
     type TextTranslateParams as TextTranslateParams,
   };
