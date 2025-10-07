@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.23.0 (2025-10-07)
+
+Full Changelog: [v1.22.0...v1.23.0](https://github.com/spi-tch/spitch-typescript/compare/v1.22.0...v1.23.0)
+
+### Features
+
+* **api:** manual updates ([dbedd94](https://github.com/spi-tch/spitch-typescript/commit/dbedd941bac81123de666324338d80b703155a7f))
+
+
+### Chores
+
+* **internal:** use npm pack for build uploads ([d4b493c](https://github.com/spi-tch/spitch-typescript/commit/d4b493c6d8fa942b2635359e240d751c9b5bccc7))
+
 ## 1.22.0 (2025-10-06)
 
 Full Changelog: [v1.21.0...v1.22.0](https://github.com/spi-tch/spitch-typescript/compare/v1.21.0...v1.22.0)
