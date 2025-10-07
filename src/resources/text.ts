@@ -20,16 +20,33 @@ export class Text extends APIResource {
   }
 }
 
+/**
+ * Response model for text diacritization requests.
+ *
+ *     Attributes:
+ *         request_id: Unique identifier for the diacritization request
+ *         text: Text with added diacritical marks for proper pronunciation
+ *         language: Language code for the diacritized text
+ */
 export interface Diacritics {
   request_id: string;
 
   text: string;
 }
 
+/**
+ * Translation result model.
+ *
+ * Attributes: request_id (UUID): Unique ID for this request. text: translated
+ * text. due_date: used when model is `human`. the date you can expect the
+ * translation to be delivered
+ */
 export interface Translation {
   request_id: string;
 
   text: string;
+
+  due_date?: string | null;
 }
 
 export interface TextToneMarkParams {
@@ -43,7 +60,13 @@ export interface TextTranslateParams {
 
   target: 'yo' | 'en' | 'ha' | 'ig' | 'am';
 
-  text: string;
+  file_id?: string | null;
+
+  instructions?: string | null;
+
+  model?: 'human' | 'auto';
+
+  text?: string | null;
 }
 
 export declare namespace Text {

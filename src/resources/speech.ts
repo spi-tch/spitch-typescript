@@ -7,6 +7,9 @@ import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { multipartFormRequestOptions } from '../internal/uploads';
 
+/**
+ * All speech-focused APIs (TTS and STT)
+ */
 export class Speech extends APIResource {
   /**
    * Synthesize
@@ -15,7 +18,7 @@ export class Speech extends APIResource {
     return this._client.post('/v1/speech', {
       body,
       ...options,
-      headers: buildHeaders([{ Accept: 'audio/wav' }, options?.headers]),
+      headers: buildHeaders([{ Accept: 'audio/*' }, options?.headers]),
       __binaryResponse: true,
     });
   }
