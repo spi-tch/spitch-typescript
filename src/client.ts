@@ -747,6 +747,9 @@ export class Spitch {
 
   static toFile = Uploads.toFile;
 
+  /**
+   * All speech-focused APIs (TTS and STT)
+   */
   speech: API.Speech = new API.Speech(this);
   text: API.Text = new API.Text(this);
   files: API.Files = new API.Files(this);
