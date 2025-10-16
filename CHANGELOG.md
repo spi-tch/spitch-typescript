@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.24.0 (2025-10-16)
+
+Full Changelog: [v1.23.0...v1.24.0](https://github.com/spi-tch/spitch-typescript/compare/v1.23.0...v1.24.0)
+
+### Features
+
+* **api:** manual updates ([daf1ee3](https://github.com/spi-tch/spitch-typescript/commit/daf1ee31ab03f31493b6330f9081fe4f69c15a64))
+
 ## 1.23.0 (2025-10-07)
 
 Full Changelog: [v1.22.0...v1.23.0](https://github.com/spi-tch/spitch-typescript/compare/v1.22.0...v1.23.0)
