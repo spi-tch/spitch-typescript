@@ -39,3 +39,15 @@ Methods:
 - <code title="get /v1/files/{file_id}">client.files.<a href="./src/resources/files.ts">get</a>(fileID) -> File</code>
 - <code title="post /v1/files">client.files.<a href="./src/resources/files.ts">upload</a>({ ...params }) -> File</code>
 - <code title="get /v1/files:usage">client.files.<a href="./src/resources/files.ts">usage</a>() -> FileUsage</code>
+
+# Jobs
+
+Types:
+
+- <code><a href="./src/resources/jobs.ts">Job</a></code>
+- <code><a href="./src/resources/jobs.ts">Jobs</a></code>
+
+Methods:
+
+- <code title="get /v1/jobs">client.jobs.<a href="./src/resources/jobs.ts">list</a>({ ...params }) -> JobsFilesCursor</code>
+- <code title="get /v1/jobs/{job_id}">client.jobs.<a href="./src/resources/jobs.ts">get</a>(jobID) -> Job</code>
