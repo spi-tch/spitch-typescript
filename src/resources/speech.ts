@@ -89,7 +89,7 @@ export interface SpeechGenerateParams {
 export interface SpeechTranscribeParams {
   language: 'yo' | 'en' | 'ha' | 'ig' | 'am';
 
-  content?: Uploadable | null;
+  content?: Uploadable | string | null;
 
   model?: 'mansa_v1' | 'legacy' | 'human' | null;
 
