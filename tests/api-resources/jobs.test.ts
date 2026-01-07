@@ -23,7 +23,11 @@ describe('resource jobs', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.jobs.list(
-        { cursor: 'cursor', limit: 99, status: 'queued' },
+        {
+          cursor: 'cursor',
+          limit: 99,
+          status: 'queued',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Spitch.NotFoundError);
