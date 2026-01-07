@@ -23,7 +23,11 @@ describe('resource files', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.files.list(
-        { cursor: 'cursor', limit: 99, status: 'uploading' },
+        {
+          cursor: 'cursor',
+          limit: 99,
+          status: 'uploading',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Spitch.NotFoundError);
