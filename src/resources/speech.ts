@@ -138,7 +138,7 @@ export interface SpeechGenerateParams {
     | 'tesfaye';
 
   /**
-   * Body param
+   * Body param: the audio format for the returned audio bytes.
    */
   format?: 'mp3' | 'wav' | 'ogg_opus' | 'webm_opus' | 'mulaw' | 'alaw' | 'flac' | 'pcm_s16le';
 
