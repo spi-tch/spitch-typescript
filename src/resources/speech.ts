@@ -12,51 +12,107 @@ import { multipartFormRequestOptions } from '../internal/uploads';
  */
 export class Speech extends APIResource {
   /**
-   * Synthesize
+   * Convert text to speech. Select a voice and use that to generate audio in any
+   * format. Audio is retured in chunks.
    */
-  generate(body: SpeechGenerateParams, options?: RequestOptions): APIPromise<Response> {
+  generate(params: SpeechGenerateParams, options?: RequestOptions): APIPromise<Response> {
+    const { 'Spitch-X-Data-Retention': spitchXDataRetention, ...body } = params;
     return this._client.post('/v1/speech', {
       body,
       ...options,
-      headers: buildHeaders([{ Accept: 'audio/*' }, options?.headers]),
+      headers: buildHeaders([
+        {
+          Accept: 'audio/wav',
+          ...(spitchXDataRetention?.toString() != null ?
+            { 'Spitch-X-Data-Retention': spitchXDataRetention?.toString() }
+          : undefined),
+        },
+        options?.headers,
+      ]),
       __binaryResponse: true,
     });
   }
 
   /**
-   * Transcribe
+   * Convert speech to text. Upload audio file containing speech and get back text
+   * that represents the content of the audio file.
    */
-  transcribe(body: SpeechTranscribeParams, options?: RequestOptions): APIPromise<Transcription> {
+  transcribe(params: SpeechTranscribeParams, options?: RequestOptions): APIPromise<SpeechTranscribeResponse> {
+    const { 'Spitch-X-Data-Retention': spitchXDataRetention, ...body } = params;
     return this._client.post(
       '/v1/transcriptions',
-      multipartFormRequestOptions({ body, ...options }, this._client),
+      multipartFormRequestOptions(
+        {
+          body,
+          ...options,
+          headers: buildHeaders([
+            {
+              ...(spitchXDataRetention?.toString() != null ?
+                { 'Spitch-X-Data-Retention': spitchXDataRetention?.toString() }
+              : undefined),
+            },
+            options?.headers,
+          ]),
+        },
+        this._client,
+      ),
     );
   }
 }
 
-export interface Transcription {
+/**
+ * a segment (sentence or word-level) of the transcript. It contains a start and
+ * end time.
+ */
+export interface Segment {
+  /**
+   * the exact time when this segment ended.
+   */
+  end: number;
+
+  /**
+   * the exact time when this segment started.
+   */
+  start: number;
+
+  /**
+   * the text that belongs in this timeframe.
+   */
+  text: string;
+}
+
+/**
+ * Response from speech-to-text.
+ */
+export interface SpeechTranscribeResponse {
+  /**
+   * for audit purposes.
+   */
   request_id: string;
 
   text: string;
 
-  timestamps?: Array<Transcription.Timestamp> | null;
-}
-
-export namespace Transcription {
-  export interface Timestamp {
-    end: number;
-
-    start: number;
-
-    text: string;
-  }
+  /**
+   * sentence-level or word-level groupings of your transcript. Each sentence (or
+   * word) will fall within a time range.
+   */
+  segments?: Array<Segment> | null;
 }
 
 export interface SpeechGenerateParams {
-  language: 'yo' | 'en' | 'ha' | 'ig' | 'am';
+  /**
+   * Body param
+   */
+  language: 'yo' | 'en' | 'ha' | 'ig' | 'am' | 'pcm';
 
+  /**
+   * Body param
+   */
   text: string;
 
+  /**
+   * Body param
+   */
   voice:
     | 'sade'
     | 'segun'
@@ -81,28 +137,58 @@ export interface SpeechGenerateParams {
     | 'tena'
     | 'tesfaye';
 
-  format?: 'wav' | 'mp3' | 'ogg_opus' | 'webm_opus' | 'flac' | 'pcm_s16le' | 'mulaw' | 'alaw';
+  /**
+   * Body param
+   */
+  model?: string | null;
 
-  model?: 'legacy' | null;
+  /**
+   * Header param
+   */
+  'Spitch-X-Data-Retention'?: boolean;
 }
 
 export interface SpeechTranscribeParams {
-  language: 'yo' | 'en' | 'ha' | 'ig' | 'am';
+  /**
+   * Body param
+   */
+  language: 'yo' | 'en' | 'ha' | 'ig' | 'am' | 'pcm';
 
+  /**
+   * Body param
+   */
   content?: Uploadable | string | null;
 
-  model?: 'mansa_v1' | 'legacy' | 'human' | null;
+  /**
+   * Body param
+   */
+  model?: 'mansa_v1' | 'legacy' | null;
 
+  /**
+   * Body param
+   */
   special_words?: string | null;
 
+  /**
+   * Body param
+   */
   timestamp?: 'sentence' | 'word' | 'none' | null;
 
+  /**
+   * @deprecated Body param
+   */
   url?: string | null;
+
+  /**
+   * Header param
+   */
+  'Spitch-X-Data-Retention'?: boolean;
 }
 
 export declare namespace Speech {
   export {
-    type Transcription as Transcription,
+    type Segment as Segment,
+    type SpeechTranscribeResponse as SpeechTranscribeResponse,
     type SpeechGenerateParams as SpeechGenerateParams,
     type SpeechTranscribeParams as SpeechTranscribeParams,
   };

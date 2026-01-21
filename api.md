@@ -2,12 +2,13 @@
 
 Types:
 
-- <code><a href="./src/resources/speech.ts">Transcription</a></code>
+- <code><a href="./src/resources/speech.ts">Segment</a></code>
+- <code><a href="./src/resources/speech.ts">SpeechTranscribeResponse</a></code>
 
 Methods:
 
 - <code title="post /v1/speech">client.speech.<a href="./src/resources/speech.ts">generate</a>({ ...params }) -> Response</code>
-- <code title="post /v1/transcriptions">client.speech.<a href="./src/resources/speech.ts">transcribe</a>({ ...params }) -> Transcription</code>
+- <code title="post /v1/transcriptions">client.speech.<a href="./src/resources/speech.ts">transcribe</a>({ ...params }) -> SpeechTranscribeResponse</code>
 
 # Text
 
@@ -34,20 +35,8 @@ Types:
 Methods:
 
 - <code title="get /v1/files">client.files.<a href="./src/resources/files.ts">list</a>({ ...params }) -> FilesFilesCursor</code>
-- <code title="delete /v1/files/{file_id}">client.files.<a href="./src/resources/files.ts">delete</a>(fileID) -> unknown</code>
-- <code title="get /v1/files/{file_id}/url">client.files.<a href="./src/resources/files.ts">download</a>(fileID, { ...params }) -> FileDownloadResponse</code>
+- <code title="delete /v1/files/{file_id}">client.files.<a href="./src/resources/files.ts">delete</a>(fileID) -> FileDeleteResponse</code>
+- <code title="get /v1/files/{file_id}/url">client.files.<a href="./src/resources/files.ts">download</a>(fileID, { ...params }) -> unknown</code>
 - <code title="get /v1/files/{file_id}">client.files.<a href="./src/resources/files.ts">get</a>(fileID) -> File</code>
 - <code title="post /v1/files">client.files.<a href="./src/resources/files.ts">upload</a>({ ...params }) -> File</code>
 - <code title="get /v1/files:usage">client.files.<a href="./src/resources/files.ts">usage</a>() -> FileUsage</code>
-
-# Jobs
-
-Types:
-
-- <code><a href="./src/resources/jobs.ts">Job</a></code>
-- <code><a href="./src/resources/jobs.ts">Jobs</a></code>
-
-Methods:
-
-- <code title="get /v1/jobs">client.jobs.<a href="./src/resources/jobs.ts">list</a>({ ...params }) -> JobsFilesCursor</code>
-- <code title="get /v1/jobs/{job_id}">client.jobs.<a href="./src/resources/jobs.ts">get</a>(jobID) -> Job</code>

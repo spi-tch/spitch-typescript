@@ -29,8 +29,13 @@ import {
   Files,
   FilesFilesCursor,
 } from './resources/files';
-import { Job, JobListParams, Jobs, JobsFilesCursor } from './resources/jobs';
-import { Speech, SpeechGenerateParams, SpeechTranscribeParams, Transcription } from './resources/speech';
+import {
+  Segment,
+  Speech,
+  SpeechGenerateParams,
+  SpeechTranscribeParams,
+  SpeechTranscribeResponse,
+} from './resources/speech';
 import { Diacritics, Text, TextToneMarkParams, TextTranslateParams, Translation } from './resources/text';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
@@ -754,7 +759,6 @@ export class Spitch {
   speech: API.Speech = new API.Speech(this);
   text: API.Text = new API.Text(this);
   files: API.Files = new API.Files(this);
-  jobs: API.Jobs = new API.Jobs(this);
 }
 
 Spitch.Speech = Speech;
@@ -768,7 +772,8 @@ export declare namespace Spitch {
 
   export {
     Speech as Speech,
-    type Transcription as Transcription,
+    type Segment as Segment,
+    type SpeechTranscribeResponse as SpeechTranscribeResponse,
     type SpeechGenerateParams as SpeechGenerateParams,
     type SpeechTranscribeParams as SpeechTranscribeParams,
   };
@@ -791,12 +796,5 @@ export declare namespace Spitch {
     type FileListParams as FileListParams,
     type FileDownloadParams as FileDownloadParams,
     type FileUploadParams as FileUploadParams,
-  };
-
-  export {
-    type Jobs as Jobs,
-    type Job as Job,
-    type JobsFilesCursor as JobsFilesCursor,
-    type JobListParams as JobListParams,
   };
 }

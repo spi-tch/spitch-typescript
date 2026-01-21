@@ -13,8 +13,8 @@ describe('resource speech', () => {
       language: 'yo',
       text: 'text',
       voice: 'sade',
-      format: 'wav',
-      model: 'legacy',
+      model: 'model',
+      'Spitch-X-Data-Retention': true,
     });
   });
 
@@ -37,6 +37,7 @@ describe('resource speech', () => {
       special_words: 'special_words',
       timestamp: 'sentence',
       url: 'url',
+      'Spitch-X-Data-Retention': true,
     });
   });
 });
