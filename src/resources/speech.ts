@@ -140,6 +140,11 @@ export interface SpeechGenerateParams {
   /**
    * Body param
    */
+  format?: 'mp3' | 'wav' | 'ogg_opus' | 'webm_opus' | 'mulaw' | 'alaw' | 'flac' | 'pcm_s16le';
+
+  /**
+   * Body param
+   */
   model?: string | null;
 
   /**
