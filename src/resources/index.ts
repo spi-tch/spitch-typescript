@@ -11,8 +11,13 @@ export {
   type FileUploadParams,
   type FilesFilesCursor,
 } from './files';
-export { Jobs, type Job, type JobListParams, type JobsFilesCursor } from './jobs';
-export { Speech, type Transcription, type SpeechGenerateParams, type SpeechTranscribeParams } from './speech';
+export {
+  Speech,
+  type Segment,
+  type SpeechTranscribeResponse,
+  type SpeechGenerateParams,
+  type SpeechTranscribeParams,
+} from './speech';
 export {
   Text,
   type Diacritics,
