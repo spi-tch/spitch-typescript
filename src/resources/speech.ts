@@ -97,6 +97,12 @@ export interface SpeechTranscribeResponse {
    * word) will fall within a time range.
    */
   segments?: Array<Segment> | null;
+
+  /**
+   * sentence-level or word-level groupings of your transcript. Each sentence (or
+   * word) will fall within a time range.
+   */
+  timestamp?: Array<Segment> | null;
 }
 
 export interface SpeechGenerateParams {
