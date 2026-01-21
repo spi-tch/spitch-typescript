@@ -13,6 +13,7 @@ describe('resource speech', () => {
       language: 'yo',
       text: 'text',
       voice: 'sade',
+      format: 'mp3',
       model: 'model',
       'Spitch-X-Data-Retention': true,
     });
