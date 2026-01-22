@@ -37,7 +37,7 @@ export class Speech extends APIResource {
    * Convert speech to text. Upload audio file containing speech and get back text
    * that represents the content of the audio file.
    */
-  transcribe(params: SpeechTranscribeParams, options?: RequestOptions): APIPromise<SpeechTranscribeResponse> {
+  transcribe(params: SpeechTranscribeParams, options?: RequestOptions): APIPromise<Transcription> {
     const { 'Spitch-X-Data-Retention': spitchXDataRetention, ...body } = params;
     return this._client.post(
       '/v1/transcriptions',
@@ -84,7 +84,7 @@ export interface Segment {
 /**
  * Response from speech-to-text.
  */
-export interface SpeechTranscribeResponse {
+export interface Transcription {
   /**
    * for audit purposes.
    */
@@ -199,7 +199,7 @@ export interface SpeechTranscribeParams {
 export declare namespace Speech {
   export {
     type Segment as Segment,
-    type SpeechTranscribeResponse as SpeechTranscribeResponse,
+    type Transcription as Transcription,
     type SpeechGenerateParams as SpeechGenerateParams,
     type SpeechTranscribeParams as SpeechTranscribeParams,
   };

@@ -14,7 +14,7 @@ export {
 export {
   Speech,
   type Segment,
-  type SpeechTranscribeResponse,
+  type Transcription,
   type SpeechGenerateParams,
   type SpeechTranscribeParams,
 } from './speech';

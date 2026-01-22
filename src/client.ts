@@ -34,7 +34,7 @@ import {
   Speech,
   SpeechGenerateParams,
   SpeechTranscribeParams,
-  SpeechTranscribeResponse,
+  Transcription,
 } from './resources/speech';
 import { Diacritics, Text, TextToneMarkParams, TextTranslateParams, Translation } from './resources/text';
 import { type Fetch } from './internal/builtin-types';
@@ -773,7 +773,7 @@ export declare namespace Spitch {
   export {
     Speech as Speech,
     type Segment as Segment,
-    type SpeechTranscribeResponse as SpeechTranscribeResponse,
+    type Transcription as Transcription,
     type SpeechGenerateParams as SpeechGenerateParams,
     type SpeechTranscribeParams as SpeechTranscribeParams,
   };
