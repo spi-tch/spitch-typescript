@@ -12,19 +12,21 @@ import { multipartFormRequestOptions } from '../internal/uploads';
  */
 export class Speech extends APIResource {
   /**
-   * Synthesize
+   * Convert text to speech. Select a voice and use that to generate audio in any
+   * format. Audio is retured in chunks.
    */
   generate(body: SpeechGenerateParams, options?: RequestOptions): APIPromise<Response> {
     return this._client.post('/v1/speech', {
       body,
       ...options,
-      headers: buildHeaders([{ Accept: 'audio/*' }, options?.headers]),
+      headers: buildHeaders([{ Accept: 'audio/wav' }, options?.headers]),
       __binaryResponse: true,
     });
   }
 
   /**
-   * Transcribe
+   * Convert speech to text. Upload audio file containing speech and get back text
+   * that represents the content of the audio file.
    */
   transcribe(body: SpeechTranscribeParams, options?: RequestOptions): APIPromise<Transcription> {
     return this._client.post(
@@ -34,26 +36,53 @@ export class Speech extends APIResource {
   }
 }
 
+/**
+ * a segment (sentence or word-level) of the transcript. It contains a start and
+ * end time.
+ */
+export interface Segment {
+  /**
+   * the exact time when this segment ended.
+   */
+  end: number;
+
+  /**
+   * the exact time when this segment started.
+   */
+  start: number;
+
+  /**
+   * the text that belongs in this timeframe.
+   */
+  text: string;
+}
+
+/**
+ * Response from speech-to-text.
+ */
 export interface Transcription {
+  /**
+   * for audit purposes.
+   */
   request_id: string;
 
   text: string;
 
-  timestamps?: Array<Transcription.Timestamp> | null;
-}
+  /**
+   * sentence-level or word-level groupings of your transcript. Each sentence (or
+   * word) will fall within a time range.
+   */
+  segments?: Array<Segment> | null;
 
-export namespace Transcription {
-  export interface Timestamp {
-    end: number;
-
-    start: number;
-
-    text: string;
-  }
+  /**
+   * @deprecated sentence-level or word-level groupings of your transcript. Each
+   * sentence (or word) will fall within a time range.
+   */
+  timestamps?: Array<Segment> | null;
 }
 
 export interface SpeechGenerateParams {
-  language: 'yo' | 'en' | 'ha' | 'ig' | 'am';
+  language: 'yo' | 'en' | 'ha' | 'ig' | 'am' | 'pcm';
 
   text: string;
 
@@ -81,27 +110,34 @@ export interface SpeechGenerateParams {
     | 'tena'
     | 'tesfaye';
 
-  format?: 'wav' | 'mp3' | 'ogg_opus' | 'webm_opus' | 'flac' | 'pcm_s16le' | 'mulaw' | 'alaw';
+  /**
+   * the audio format for the returned audio bytes.
+   */
+  format?: 'mp3' | 'wav' | 'ogg_opus' | 'webm_opus' | 'mulaw' | 'alaw' | 'flac' | 'pcm_s16le';
 
-  model?: 'legacy' | null;
+  model?: string | null;
 }
 
 export interface SpeechTranscribeParams {
-  language: 'yo' | 'en' | 'ha' | 'ig' | 'am';
+  language: 'yo' | 'en' | 'ha' | 'ig' | 'am' | 'pcm';
 
-  content?: Uploadable | null;
+  content?: Uploadable | string | null;
 
-  model?: 'mansa_v1' | 'legacy' | 'human' | null;
+  model?: 'mansa_v1' | 'legacy' | null;
 
   special_words?: string | null;
 
   timestamp?: 'sentence' | 'word' | 'none' | null;
 
+  /**
+   * @deprecated
+   */
   url?: string | null;
 }
 
 export declare namespace Speech {
   export {
+    type Segment as Segment,
     type Transcription as Transcription,
     type SpeechGenerateParams as SpeechGenerateParams,
     type SpeechTranscribeParams as SpeechTranscribeParams,

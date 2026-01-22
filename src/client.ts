@@ -29,8 +29,13 @@ import {
   Files,
   FilesFilesCursor,
 } from './resources/files';
-import { Job, JobListParams, Jobs, JobsFilesCursor } from './resources/jobs';
-import { Speech, SpeechGenerateParams, SpeechTranscribeParams, Transcription } from './resources/speech';
+import {
+  Segment,
+  Speech,
+  SpeechGenerateParams,
+  SpeechTranscribeParams,
+  Transcription,
+} from './resources/speech';
 import { Diacritics, Text, TextToneMarkParams, TextTranslateParams, Translation } from './resources/text';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
@@ -50,6 +55,8 @@ export interface ClientOptions {
    * Defaults to process.env['SPITCH_API_KEY'].
    */
   apiKey?: string | undefined;
+
+  dataRetention?: boolean | null | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -125,11 +132,12 @@ export interface ClientOptions {
  */
 export class Spitch {
   apiKey: string;
+  dataRetention: boolean | null;
 
   baseURL: string;
   maxRetries: number;
   timeout: number;
-  logger: Logger | undefined;
+  logger: Logger;
   logLevel: LogLevel | undefined;
   fetchOptions: MergedRequestInit | undefined;
 
@@ -142,6 +150,7 @@ export class Spitch {
    * API Client for interfacing with the Spitch API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['SPITCH_API_KEY'] ?? undefined]
+   * @param {boolean | null | undefined} [opts.dataRetention=true]
    * @param {string} [opts.baseURL=process.env['SPITCH_BASE_URL'] ?? https://api.spi-tch.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -153,6 +162,7 @@ export class Spitch {
   constructor({
     baseURL = readEnv('SPITCH_BASE_URL'),
     apiKey = readEnv('SPITCH_API_KEY'),
+    dataRetention = true,
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
@@ -163,6 +173,7 @@ export class Spitch {
 
     const options: ClientOptions = {
       apiKey,
+      dataRetention,
       ...opts,
       baseURL: baseURL || `https://api.spi-tch.com`,
     };
@@ -185,6 +196,7 @@ export class Spitch {
     this._options = options;
 
     this.apiKey = apiKey;
+    this.dataRetention = dataRetention;
   }
 
   /**
@@ -201,6 +213,7 @@ export class Spitch {
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
       apiKey: this.apiKey,
+      dataRetention: this.dataRetention,
       ...options,
     });
     return client;
@@ -680,6 +693,7 @@ export class Spitch {
         'X-Stainless-Retry-Count': String(retryCount),
         ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
+        'X-Data-Retention': this.dataRetention?.toString() ?? null,
       },
       await this.authHeaders(options),
       this._options.defaultHeaders,
@@ -754,7 +768,6 @@ export class Spitch {
   speech: API.Speech = new API.Speech(this);
   text: API.Text = new API.Text(this);
   files: API.Files = new API.Files(this);
-  jobs: API.Jobs = new API.Jobs(this);
 }
 
 Spitch.Speech = Speech;
@@ -768,6 +781,7 @@ export declare namespace Spitch {
 
   export {
     Speech as Speech,
+    type Segment as Segment,
     type Transcription as Transcription,
     type SpeechGenerateParams as SpeechGenerateParams,
     type SpeechTranscribeParams as SpeechTranscribeParams,
@@ -791,12 +805,5 @@ export declare namespace Spitch {
     type FileListParams as FileListParams,
     type FileDownloadParams as FileDownloadParams,
     type FileUploadParams as FileUploadParams,
-  };
-
-  export {
-    type Jobs as Jobs,
-    type Job as Job,
-    type JobsFilesCursor as JobsFilesCursor,
-    type JobListParams as JobListParams,
   };
 }

@@ -13,8 +13,8 @@ describe('resource speech', () => {
       language: 'yo',
       text: 'text',
       voice: 'sade',
-      format: 'wav',
-      model: 'legacy',
+      format: 'mp3',
+      model: 'model',
     });
   });
 
