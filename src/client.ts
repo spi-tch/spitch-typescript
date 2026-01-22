@@ -56,6 +56,8 @@ export interface ClientOptions {
    */
   apiKey?: string | undefined;
 
+  dataRetention?: boolean | null | undefined;
+
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
@@ -130,6 +132,7 @@ export interface ClientOptions {
  */
 export class Spitch {
   apiKey: string;
+  dataRetention: boolean | null;
 
   baseURL: string;
   maxRetries: number;
@@ -147,6 +150,7 @@ export class Spitch {
    * API Client for interfacing with the Spitch API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['SPITCH_API_KEY'] ?? undefined]
+   * @param {boolean | null | undefined} [opts.dataRetention=true]
    * @param {string} [opts.baseURL=process.env['SPITCH_BASE_URL'] ?? https://api.spi-tch.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -158,6 +162,7 @@ export class Spitch {
   constructor({
     baseURL = readEnv('SPITCH_BASE_URL'),
     apiKey = readEnv('SPITCH_API_KEY'),
+    dataRetention = true,
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
@@ -168,6 +173,7 @@ export class Spitch {
 
     const options: ClientOptions = {
       apiKey,
+      dataRetention,
       ...opts,
       baseURL: baseURL || `https://api.spi-tch.com`,
     };
@@ -190,6 +196,7 @@ export class Spitch {
     this._options = options;
 
     this.apiKey = apiKey;
+    this.dataRetention = dataRetention;
   }
 
   /**
@@ -206,6 +213,7 @@ export class Spitch {
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
       apiKey: this.apiKey,
+      dataRetention: this.dataRetention,
       ...options,
     });
     return client;
@@ -685,6 +693,7 @@ export class Spitch {
         'X-Stainless-Retry-Count': String(retryCount),
         ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
+        'X-Data-Retention': this.dataRetention?.toString() ?? null,
       },
       await this.authHeaders(options),
       this._options.defaultHeaders,

@@ -15,20 +15,11 @@ export class Speech extends APIResource {
    * Convert text to speech. Select a voice and use that to generate audio in any
    * format. Audio is retured in chunks.
    */
-  generate(params: SpeechGenerateParams, options?: RequestOptions): APIPromise<Response> {
-    const { 'X-Data-Retention': xDataRetention, ...body } = params;
+  generate(body: SpeechGenerateParams, options?: RequestOptions): APIPromise<Response> {
     return this._client.post('/v1/speech', {
       body,
       ...options,
-      headers: buildHeaders([
-        {
-          Accept: 'audio/wav',
-          ...(xDataRetention?.toString() != null ?
-            { 'X-Data-Retention': xDataRetention?.toString() }
-          : undefined),
-        },
-        options?.headers,
-      ]),
+      headers: buildHeaders([{ Accept: 'audio/wav' }, options?.headers]),
       __binaryResponse: true,
     });
   }
@@ -37,25 +28,10 @@ export class Speech extends APIResource {
    * Convert speech to text. Upload audio file containing speech and get back text
    * that represents the content of the audio file.
    */
-  transcribe(params: SpeechTranscribeParams, options?: RequestOptions): APIPromise<Transcription> {
-    const { 'X-Data-Retention': xDataRetention, ...body } = params;
+  transcribe(body: SpeechTranscribeParams, options?: RequestOptions): APIPromise<Transcription> {
     return this._client.post(
       '/v1/transcriptions',
-      multipartFormRequestOptions(
-        {
-          body,
-          ...options,
-          headers: buildHeaders([
-            {
-              ...(xDataRetention?.toString() != null ?
-                { 'X-Data-Retention': xDataRetention?.toString() }
-              : undefined),
-            },
-            options?.headers,
-          ]),
-        },
-        this._client,
-      ),
+      multipartFormRequestOptions({ body, ...options }, this._client),
     );
   }
 }
@@ -106,19 +82,10 @@ export interface Transcription {
 }
 
 export interface SpeechGenerateParams {
-  /**
-   * Body param
-   */
   language: 'yo' | 'en' | 'ha' | 'ig' | 'am' | 'pcm';
 
-  /**
-   * Body param
-   */
   text: string;
 
-  /**
-   * Body param
-   */
   voice:
     | 'sade'
     | 'segun'
@@ -144,56 +111,28 @@ export interface SpeechGenerateParams {
     | 'tesfaye';
 
   /**
-   * Body param: the audio format for the returned audio bytes.
+   * the audio format for the returned audio bytes.
    */
   format?: 'mp3' | 'wav' | 'ogg_opus' | 'webm_opus' | 'mulaw' | 'alaw' | 'flac' | 'pcm_s16le';
 
-  /**
-   * Body param
-   */
   model?: string | null;
-
-  /**
-   * Header param
-   */
-  'X-Data-Retention'?: boolean;
 }
 
 export interface SpeechTranscribeParams {
-  /**
-   * Body param
-   */
   language: 'yo' | 'en' | 'ha' | 'ig' | 'am' | 'pcm';
 
-  /**
-   * Body param
-   */
   content?: Uploadable | string | null;
 
-  /**
-   * Body param
-   */
   model?: 'mansa_v1' | 'legacy' | null;
 
-  /**
-   * Body param
-   */
   special_words?: string | null;
 
-  /**
-   * Body param
-   */
   timestamp?: 'sentence' | 'word' | 'none' | null;
 
   /**
-   * @deprecated Body param
+   * @deprecated
    */
   url?: string | null;
-
-  /**
-   * Header param
-   */
-  'X-Data-Retention'?: boolean;
 }
 
 export declare namespace Speech {
