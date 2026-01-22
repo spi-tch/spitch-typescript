@@ -1,5 +1,39 @@
 # Changelog
 
+## 1.26.0 (2026-01-22)
+
+Full Changelog: [v1.25.0...v1.26.0](https://github.com/spi-tch/spitch-typescript/compare/v1.25.0...v1.26.0)
+
+### Features
+
+* **api:** manual updates ([252036e](https://github.com/spi-tch/spitch-typescript/commit/252036ed3b25339df3addfa87dfe01b9f6cb961b))
+* **api:** manual updates ([7422139](https://github.com/spi-tch/spitch-typescript/commit/74221397a5cafeb7994c2f48407a1c2585b08c44))
+* **api:** manual updates ([8ec3097](https://github.com/spi-tch/spitch-typescript/commit/8ec30975d5a3d2a57fdf275ddbb54126fbf9b748))
+* **api:** manual updates ([4c5ce22](https://github.com/spi-tch/spitch-typescript/commit/4c5ce2282077efc1422313991eb76979dfb1be93))
+* **api:** manual updates ([07cd487](https://github.com/spi-tch/spitch-typescript/commit/07cd4876a5ea9e441a7283052fb4e0bb46eed76a))
+* **api:** manual updates ([42f9e9a](https://github.com/spi-tch/spitch-typescript/commit/42f9e9a0c516ce707d82a0669e92874cf7b4e5e8))
+* **api:** manual updates ([b2430c5](https://github.com/spi-tch/spitch-typescript/commit/b2430c5fafc92e5ed7624c0ce5b2c65502484fe3))
+* **api:** manual updates ([21374e2](https://github.com/spi-tch/spitch-typescript/commit/21374e2085569c5f0ac1d9c94dded8156064d12c))
+* **files:** add support for string alternative to file upload type ([b668757](https://github.com/spi-tch/spitch-typescript/commit/b668757cd07b6925ab5743a2474b39c61248da96))
+
+
+### Bug Fixes
+
+* **mcp:** correct code tool API endpoint ([0c41fc8](https://github.com/spi-tch/spitch-typescript/commit/0c41fc8ec6fad7c1acef18fb06004c2c449b9eb1))
+* **mcp:** return correct lines on typescript errors ([1f0b125](https://github.com/spi-tch/spitch-typescript/commit/1f0b125ea4ccba27c1aa082455491c5385e9d9b4))
+
+
+### Chores
+
+* **client:** fix logger property type ([3d70a93](https://github.com/spi-tch/spitch-typescript/commit/3d70a93fa5b3b0d0b415b3cb6f454370369e1059))
+* configure new SDK language ([5d0134a](https://github.com/spi-tch/spitch-typescript/commit/5d0134a9c1049f4aa36c89d4ecb886d5654c8b88))
+* **internal:** codegen related update ([2ebf0f1](https://github.com/spi-tch/spitch-typescript/commit/2ebf0f10301e32fdbabbaf62c12b12483e85fac9))
+* **internal:** codegen related update ([c78d93d](https://github.com/spi-tch/spitch-typescript/commit/c78d93d3dde3934686a97747dfa815a91adf6ff1))
+* **internal:** codegen related update ([451a63a](https://github.com/spi-tch/spitch-typescript/commit/451a63a30fb6f9870fa391ed20f6217a34b2319e))
+* **internal:** codegen related update ([e4418bf](https://github.com/spi-tch/spitch-typescript/commit/e4418bfdd569a13b8701d570fd092ef4423bf132))
+* **internal:** codegen related update ([d880014](https://github.com/spi-tch/spitch-typescript/commit/d88001492af3c2d681a6bb80286d5e345c8e7114))
+* **internal:** upgrade eslint ([04953d8](https://github.com/spi-tch/spitch-typescript/commit/04953d89286bdbd2746fb4c88b3c7926c207a002))
+
 ## 1.25.0 (2025-11-04)
 
 Full Changelog: [v1.24.0...v1.25.0](https://github.com/spi-tch/spitch-typescript/compare/v1.24.0...v1.25.0)
