@@ -15,7 +15,7 @@ describe('resource speech', () => {
       voice: 'sade',
       format: 'mp3',
       model: 'model',
-      'Spitch-X-Data-Retention': true,
+      'X-Data-Retention': true,
     });
   });
 
@@ -38,7 +38,7 @@ describe('resource speech', () => {
       special_words: 'special_words',
       timestamp: 'sentence',
       url: 'url',
-      'Spitch-X-Data-Retention': true,
+      'X-Data-Retention': true,
     });
   });
 });

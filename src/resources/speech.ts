@@ -16,15 +16,15 @@ export class Speech extends APIResource {
    * format. Audio is retured in chunks.
    */
   generate(params: SpeechGenerateParams, options?: RequestOptions): APIPromise<Response> {
-    const { 'Spitch-X-Data-Retention': spitchXDataRetention, ...body } = params;
+    const { 'X-Data-Retention': xDataRetention, ...body } = params;
     return this._client.post('/v1/speech', {
       body,
       ...options,
       headers: buildHeaders([
         {
           Accept: 'audio/wav',
-          ...(spitchXDataRetention?.toString() != null ?
-            { 'Spitch-X-Data-Retention': spitchXDataRetention?.toString() }
+          ...(xDataRetention?.toString() != null ?
+            { 'X-Data-Retention': xDataRetention?.toString() }
           : undefined),
         },
         options?.headers,
@@ -38,7 +38,7 @@ export class Speech extends APIResource {
    * that represents the content of the audio file.
    */
   transcribe(params: SpeechTranscribeParams, options?: RequestOptions): APIPromise<Transcription> {
-    const { 'Spitch-X-Data-Retention': spitchXDataRetention, ...body } = params;
+    const { 'X-Data-Retention': xDataRetention, ...body } = params;
     return this._client.post(
       '/v1/transcriptions',
       multipartFormRequestOptions(
@@ -47,8 +47,8 @@ export class Speech extends APIResource {
           ...options,
           headers: buildHeaders([
             {
-              ...(spitchXDataRetention?.toString() != null ?
-                { 'Spitch-X-Data-Retention': spitchXDataRetention?.toString() }
+              ...(xDataRetention?.toString() != null ?
+                { 'X-Data-Retention': xDataRetention?.toString() }
               : undefined),
             },
             options?.headers,
@@ -156,7 +156,7 @@ export interface SpeechGenerateParams {
   /**
    * Header param
    */
-  'Spitch-X-Data-Retention'?: boolean;
+  'X-Data-Retention'?: boolean;
 }
 
 export interface SpeechTranscribeParams {
@@ -193,7 +193,7 @@ export interface SpeechTranscribeParams {
   /**
    * Header param
    */
-  'Spitch-X-Data-Retention'?: boolean;
+  'X-Data-Retention'?: boolean;
 }
 
 export declare namespace Speech {
