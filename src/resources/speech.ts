@@ -99,10 +99,10 @@ export interface Transcription {
   segments?: Array<Segment> | null;
 
   /**
-   * sentence-level or word-level groupings of your transcript. Each sentence (or
-   * word) will fall within a time range.
+   * @deprecated sentence-level or word-level groupings of your transcript. Each
+   * sentence (or word) will fall within a time range.
    */
-  timestamp?: Array<Segment> | null;
+  timestamps?: Array<Segment> | null;
 }
 
 export interface SpeechGenerateParams {
