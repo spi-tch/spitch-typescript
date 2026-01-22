@@ -3,12 +3,12 @@
 Types:
 
 - <code><a href="./src/resources/speech.ts">Segment</a></code>
-- <code><a href="./src/resources/speech.ts">SpeechTranscribeResponse</a></code>
+- <code><a href="./src/resources/speech.ts">Transcription</a></code>
 
 Methods:
 
 - <code title="post /v1/speech">client.speech.<a href="./src/resources/speech.ts">generate</a>({ ...params }) -> Response</code>
-- <code title="post /v1/transcriptions">client.speech.<a href="./src/resources/speech.ts">transcribe</a>({ ...params }) -> SpeechTranscribeResponse</code>
+- <code title="post /v1/transcriptions">client.speech.<a href="./src/resources/speech.ts">transcribe</a>({ ...params }) -> Transcription</code>
 
 # Text
 

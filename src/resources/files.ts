@@ -65,8 +65,6 @@ export type FilesFilesCursor = FilesCursor<File>;
  * Metadata info for this file.
  */
 export interface File {
-  content_type: string | null;
-
   created_at: string;
 
   file_id: string;
