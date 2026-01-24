@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.26.1 (2026-01-24)
+
+Full Changelog: [v1.26.0...v1.26.1](https://github.com/spi-tch/spitch-typescript/compare/v1.26.0...v1.26.1)
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([55e152b](https://github.com/spi-tch/spitch-typescript/commit/55e152b414c7a6c607ce85bfa76e1a8795040579))
+
 ## 1.26.0 (2026-01-22)
 
 Full Changelog: [v1.25.0...v1.26.0](https://github.com/spi-tch/spitch-typescript/compare/v1.25.0...v1.26.0)
