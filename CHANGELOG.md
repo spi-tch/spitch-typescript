@@ -1,8 +1,8 @@
 # Changelog
 
-## 1.26.1 (2026-02-03)
+## 1.45.0 (2026-02-03)
 
-Full Changelog: [v1.26.0...v1.26.1](https://github.com/spi-tch/spitch-typescript/compare/v1.26.0...v1.26.1)
+Full Changelog: [v1.26.0...v1.45.0](https://github.com/spi-tch/spitch-typescript/compare/v1.26.0...v1.45.0)
 
 ### Bug Fixes
 
