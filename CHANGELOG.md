@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.26.1 (2026-02-03)
+
+Full Changelog: [v1.26.0...v1.26.1](https://github.com/spi-tch/spitch-typescript/compare/v1.26.0...v1.26.1)
+
+### Bug Fixes
+
+* **client:** avoid memory leak with abort signals ([f828d8a](https://github.com/spi-tch/spitch-typescript/commit/f828d8a50752ef3f2cc78a16f16d1534e81f35ba))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([55e152b](https://github.com/spi-tch/spitch-typescript/commit/55e152b414c7a6c607ce85bfa76e1a8795040579))
+* **client:** do not parse responses with empty content-length ([6359a76](https://github.com/spi-tch/spitch-typescript/commit/6359a769314f4915f681cbc74640b64a4d7eca3b))
+
 ## 1.26.0 (2026-01-22)
 
 Full Changelog: [v1.25.0...v1.26.0](https://github.com/spi-tch/spitch-typescript/compare/v1.25.0...v1.26.0)
