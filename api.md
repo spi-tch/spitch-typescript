@@ -36,5 +36,6 @@ Methods:
 - <code title="get /v1/files">client.files.<a href="./src/resources/files.ts">list</a>({ ...params }) -> FileMetasFilesCursor</code>
 - <code title="delete /v1/files/{file_id}">client.files.<a href="./src/resources/files.ts">delete</a>(fileID) -> FileDeleteResponse</code>
 - <code title="get /v1/files/{file_id}/url">client.files.<a href="./src/resources/files.ts">download</a>(fileID, { ...params }) -> unknown</code>
+- <code title="get /v1/files/{file_id}">client.files.<a href="./src/resources/files.ts">get</a>(fileID) -> FileMeta</code>
 - <code title="post /v1/files">client.files.<a href="./src/resources/files.ts">upload</a>({ ...params }) -> FileMeta</code>
 - <code title="get /v1/files:usage">client.files.<a href="./src/resources/files.ts">usage</a>() -> FileUsage</code>
