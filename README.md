@@ -190,7 +190,7 @@ You can use the `for await … of` syntax to iterate through items across all pa
 async function fetchAllFiles(params) {
   const allFiles = [];
   // Automatically fetches more pages as needed.
-  for await (const file of client.files.list({ limit: 10 })) {
+  for await (const file of client.files.list({ limit: 50 })) {
     allFiles.push(file);
   }
   return allFiles;
@@ -200,7 +200,7 @@ async function fetchAllFiles(params) {
 Alternatively, you can request a single page at a time:
 
 ```ts
-let page = await client.files.list({ limit: 10 });
+let page = await client.files.list({ limit: 50 });
 for (const file of page.items) {
   console.log(file);
 }
