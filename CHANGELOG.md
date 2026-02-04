@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.47.0 (2026-02-04)
+
+Full Changelog: [v1.45.0...v1.47.0](https://github.com/spi-tch/spitch-typescript/compare/v1.45.0...v1.47.0)
+
+### Features
+
+* **api:** manual updates ([7260b8c](https://github.com/spi-tch/spitch-typescript/commit/7260b8c0e9d6007e98623c835eb8da792e7fe9b3))
+* **api:** manual updates ([a0f115d](https://github.com/spi-tch/spitch-typescript/commit/a0f115de9482d016ad005c3e3b4d48a7959b76af))
+* **api:** manual updates ([1d85ffe](https://github.com/spi-tch/spitch-typescript/commit/1d85ffefd09a416610517cd5b7465297f0038796))
+* **api:** manual updates ([a2cc6f9](https://github.com/spi-tch/spitch-typescript/commit/a2cc6f9d2e5084314873d5a2b0f0913850b685a9))
+
 ## 1.45.0 (2026-02-03)
 
 Full Changelog: [v1.26.0...v1.45.0](https://github.com/spi-tch/spitch-typescript/compare/v1.26.0...v1.45.0)
