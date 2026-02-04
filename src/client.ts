@@ -19,15 +19,15 @@ import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
 import {
-  File,
   FileDeleteResponse,
   FileDownloadParams,
   FileDownloadResponse,
   FileListParams,
+  FileMeta,
+  FileMetasFilesCursor,
   FileUploadParams,
   FileUsage,
   Files,
-  FilesFilesCursor,
 } from './resources/files';
 import {
   Segment,
@@ -773,6 +773,7 @@ export class Spitch {
 
 Spitch.Speech = Speech;
 Spitch.Text = Text;
+Spitch.Files = Files;
 
 export declare namespace Spitch {
   export type RequestOptions = Opts.RequestOptions;
@@ -797,12 +798,12 @@ export declare namespace Spitch {
   };
 
   export {
-    type Files as Files,
-    type File as File,
+    Files as Files,
+    type FileMeta as FileMeta,
     type FileUsage as FileUsage,
     type FileDeleteResponse as FileDeleteResponse,
     type FileDownloadResponse as FileDownloadResponse,
-    type FilesFilesCursor as FilesFilesCursor,
+    type FileMetasFilesCursor as FileMetasFilesCursor,
     type FileListParams as FileListParams,
     type FileDownloadParams as FileDownloadParams,
     type FileUploadParams as FileUploadParams,
