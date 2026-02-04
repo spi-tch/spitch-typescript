@@ -15,8 +15,8 @@ export class Files extends APIResource {
   list(
     query: FileListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<FilesFilesCursor, File> {
-    return this._client.getAPIList('/v1/files', FilesCursor<File>, { query, ...options });
+  ): PagePromise<FileMetasFilesCursor, FileMeta> {
+    return this._client.getAPIList('/v1/files', FilesCursor<FileMeta>, { query, ...options });
   }
 
   /**
@@ -38,16 +38,9 @@ export class Files extends APIResource {
   }
 
   /**
-   * Get File
-   */
-  get(fileID: string, options?: RequestOptions): APIPromise<File> {
-    return this._client.get(path`/v1/files/${fileID}`, options);
-  }
-
-  /**
    * Upload a file to your storage.
    */
-  upload(body: FileUploadParams, options?: RequestOptions): APIPromise<File> {
+  upload(body: FileUploadParams, options?: RequestOptions): APIPromise<FileMeta> {
     return this._client.post('/v1/files', multipartFormRequestOptions({ body, ...options }, this._client));
   }
 
@@ -59,12 +52,12 @@ export class Files extends APIResource {
   }
 }
 
-export type FilesFilesCursor = FilesCursor<File>;
+export type FileMetasFilesCursor = FilesCursor<FileMeta>;
 
 /**
  * Metadata info for this file.
  */
-export interface File {
+export interface FileMeta {
   created_at: string;
 
   file_id: string;
@@ -105,15 +98,6 @@ export interface FileUsage {
   used_bytes?: number;
 }
 
-/**
- * an array of file information.
- */
-export interface Files {
-  items: Array<File>;
-
-  next_cursor?: string | null;
-}
-
 export interface FileDeleteResponse {
   status?: boolean;
 }
@@ -132,12 +116,11 @@ export interface FileUploadParams {
 
 export declare namespace Files {
   export {
-    type File as File,
+    type FileMeta as FileMeta,
     type FileUsage as FileUsage,
-    type Files as Files,
     type FileDeleteResponse as FileDeleteResponse,
     type FileDownloadResponse as FileDownloadResponse,
-    type FilesFilesCursor as FilesFilesCursor,
+    type FileMetasFilesCursor as FileMetasFilesCursor,
     type FileListParams as FileListParams,
     type FileDownloadParams as FileDownloadParams,
     type FileUploadParams as FileUploadParams,

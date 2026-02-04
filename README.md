@@ -187,22 +187,22 @@ List methods in the Spitch API are paginated.
 You can use the `for await … of` syntax to iterate through items across all pages:
 
 ```ts
-async function fetchAllFiles(params) {
-  const allFiles = [];
+async function fetchAllFileMetas(params) {
+  const allFileMetas = [];
   // Automatically fetches more pages as needed.
-  for await (const file of client.files.list({ limit: 10 })) {
-    allFiles.push(file);
+  for await (const fileMeta of client.files.list({ limit: 50 })) {
+    allFileMetas.push(fileMeta);
   }
-  return allFiles;
+  return allFileMetas;
 }
 ```
 
 Alternatively, you can request a single page at a time:
 
 ```ts
-let page = await client.files.list({ limit: 10 });
-for (const file of page.items) {
-  console.log(file);
+let page = await client.files.list({ limit: 50 });
+for (const fileMeta of page.items) {
+  console.log(fileMeta);
 }
 
 // Convenience methods are provided for manually paginating:

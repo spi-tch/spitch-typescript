@@ -59,17 +59,6 @@ describe('resource files', () => {
     ).rejects.toThrow(Spitch.NotFoundError);
   });
 
-  test('get', async () => {
-    const responsePromise = client.files.get('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
   test('upload: only required params', async () => {
     const responsePromise = client.files.upload({
       file: await toFile(Buffer.from('# my file contents'), 'README.md'),
