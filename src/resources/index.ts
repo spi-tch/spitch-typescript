@@ -2,14 +2,14 @@
 
 export {
   Files,
-  type File,
+  type FileMeta,
   type FileUsage,
   type FileDeleteResponse,
   type FileDownloadResponse,
   type FileListParams,
   type FileDownloadParams,
   type FileUploadParams,
-  type FilesFilesCursor,
+  type FileMetasFilesCursor,
 } from './files';
 export {
   Speech,
