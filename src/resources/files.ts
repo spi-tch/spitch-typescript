@@ -38,13 +38,6 @@ export class Files extends APIResource {
   }
 
   /**
-   * Get File
-   */
-  get(fileID: string, options?: RequestOptions): APIPromise<FileMeta> {
-    return this._client.get(path`/v1/files/${fileID}`, options);
-  }
-
-  /**
    * Upload a file to your storage.
    */
   upload(body: FileUploadParams, options?: RequestOptions): APIPromise<FileMeta> {
