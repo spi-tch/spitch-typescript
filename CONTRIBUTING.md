@@ -60,7 +60,7 @@ $ yarn link spitch
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global spitch
+$ pnpm link --global spitch
 ```
 
 ## Running tests
