@@ -33,7 +33,7 @@ describe('resource speech', () => {
   test('transcribe: required and optional params', async () => {
     const response = await client.speech.transcribe({
       language: 'yo',
-      content: await toFile(Buffer.from('# my file contents'), 'README.md'),
+      content: await toFile(Buffer.from('Example data'), 'README.md'),
       model: 'mansa_v1',
       special_words: 'special_words',
       timestamp: 'sentence',
