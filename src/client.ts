@@ -622,7 +622,7 @@ export class Spitch {
   }
 
   private calculateDefaultRetryTimeoutMillis(retriesRemaining: number, maxRetries: number): number {
-    const initialRetryDelay = 0.3;
+    const initialRetryDelay = 0.35;
     const maxRetryDelay = 10.0;
 
     const numRetries = maxRetries - retriesRemaining;
