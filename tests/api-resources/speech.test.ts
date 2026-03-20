@@ -8,8 +8,7 @@ const client = new Spitch({
 });
 
 describe('resource speech', () => {
-  // Mock server doesn't support audio/wav responses
-  test.skip('generate: required and optional params', async () => {
+  test('generate: required and optional params', async () => {
     const response = await client.speech.generate({
       language: 'yo',
       text: 'text',
