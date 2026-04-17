@@ -152,7 +152,7 @@ export class Spitch {
    *
    * @param {string | undefined} [opts.apiKey=process.env['SPITCH_API_KEY'] ?? undefined]
    * @param {boolean | null | undefined} [opts.dataRetention=true]
-   * @param {string} [opts.baseURL=process.env['SPITCH_BASE_URL'] ?? https://api.spi-tch.com] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['SPITCH_BASE_URL'] ?? https://api.spitch.app] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -176,7 +176,7 @@ export class Spitch {
       apiKey,
       dataRetention,
       ...opts,
-      baseURL: baseURL || `https://api.spi-tch.com`,
+      baseURL: baseURL || `https://api.spitch.app`,
     };
 
     this.baseURL = options.baseURL!;
@@ -224,7 +224,7 @@ export class Spitch {
    * Check whether the base URL is set to its default.
    */
   #baseURLOverridden(): boolean {
-    return this.baseURL !== 'https://api.spi-tch.com';
+    return this.baseURL !== 'https://api.spitch.app';
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
