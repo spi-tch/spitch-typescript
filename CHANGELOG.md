@@ -1,5 +1,54 @@
 # Changelog
 
+## 1.48.0 (2026-04-17)
+
+Full Changelog: [v1.47.0...v1.48.0](https://github.com/spi-tch/spitch-typescript/compare/v1.47.0...v1.48.0)
+
+### Features
+
+* **api:** manual updates ([ddaa9ff](https://github.com/spi-tch/spitch-typescript/commit/ddaa9ff9458ed9e1fa2782d1cf01398ae4c05f63))
+* **api:** manual updates ([2bb8f63](https://github.com/spi-tch/spitch-typescript/commit/2bb8f633814e33b41a9ae9aa2afccabbe87662c9))
+
+
+### Bug Fixes
+
+* **client:** avoid removing abort listener too early ([6cdd6c9](https://github.com/spi-tch/spitch-typescript/commit/6cdd6c9a8e0e20605f7a3c5b0bf8b4a99bb18f4f))
+* **client:** preserve URL params already embedded in path ([bab9984](https://github.com/spi-tch/spitch-typescript/commit/bab99843eadea910d35b0856731fd3f2613af3e8))
+* **client:** use higher retry delay precision ([006c90f](https://github.com/spi-tch/spitch-typescript/commit/006c90fc01c9ec689ecd3cc2d170a434afdc1e1a))
+* **docs/contributing:** correct pnpm link command ([174bdb9](https://github.com/spi-tch/spitch-typescript/commit/174bdb911924342c1194e25386b4cc4739c963f2))
+* **internal:** skip tests that depend on mock server ([10c511f](https://github.com/spi-tch/spitch-typescript/commit/10c511fc5c52ca964a352e84fbd88f8f728d0bca))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([aff9520](https://github.com/spi-tch/spitch-typescript/commit/aff95204bb0a6ad744d9a4cf1bf38e84ed634348))
+* **ci:** skip uploading artifacts on stainless-internal branches ([30df5a5](https://github.com/spi-tch/spitch-typescript/commit/30df5a5904e89434320f59f60f29b29d898eedd5))
+* **client:** restructure abort controller binding ([cc59e7e](https://github.com/spi-tch/spitch-typescript/commit/cc59e7ecb9d2d88c06452f3722238738e86dda7b))
+* **internal/client:** fix form-urlencoded requests ([f167f6a](https://github.com/spi-tch/spitch-typescript/commit/f167f6abf973e4b16c9a978fc865901f09b6d22f))
+* **internal:** avoid type checking errors with ts-reset ([c801ce2](https://github.com/spi-tch/spitch-typescript/commit/c801ce2f79d3fe2c6535803d25a741c61e58e520))
+* **internal:** codegen related update ([d89c3f0](https://github.com/spi-tch/spitch-typescript/commit/d89c3f0f4cd84b49012e57121d0dd0c8f84dc315))
+* **internal:** codegen related update ([031cb2d](https://github.com/spi-tch/spitch-typescript/commit/031cb2d86acd7e851b94cad2085eaf315b3e3c56))
+* **internal:** fix pagination internals not accepting option promises ([1737108](https://github.com/spi-tch/spitch-typescript/commit/1737108fdd1fafdab8f621d1d10b415381851dd4))
+* **internal:** move stringifyQuery implementation to internal function ([01f5673](https://github.com/spi-tch/spitch-typescript/commit/01f5673314381c827acf1f1a966947d78c86a5f9))
+* **internal:** tweak CI branches ([7c91860](https://github.com/spi-tch/spitch-typescript/commit/7c918606efe229ffd9ef8af2b8be8c3b369f7caa))
+* **internal:** update dependencies to address dependabot vulnerabilities ([1e3aa39](https://github.com/spi-tch/spitch-typescript/commit/1e3aa3984789b2f505006330fc52962f7cacb154))
+* **internal:** update gitignore ([ecef029](https://github.com/spi-tch/spitch-typescript/commit/ecef0291ef2d878e8aa1865bd6498d5ee0737b99))
+* **internal:** update multipart form array serialization ([5f701dc](https://github.com/spi-tch/spitch-typescript/commit/5f701dc3ff8fb6e85178e011a580bed8056cd097))
+* **test:** do not count install time for mock server timeout ([78e07b5](https://github.com/spi-tch/spitch-typescript/commit/78e07b56dcf1f20271e017149a6b96d9addd9c19))
+* **tests:** bump steady to v0.19.4 ([6c0c3b6](https://github.com/spi-tch/spitch-typescript/commit/6c0c3b6dd20661da196eda2c15399996cb95eabf))
+* **tests:** bump steady to v0.19.5 ([b4bdba6](https://github.com/spi-tch/spitch-typescript/commit/b4bdba68d5213c9d46da15f1c2e19705ff634ab0))
+* **tests:** bump steady to v0.19.6 ([d1e1fc6](https://github.com/spi-tch/spitch-typescript/commit/d1e1fc61d519a70cafdb0a4ce9d49c8dc4eac890))
+* **tests:** bump steady to v0.19.7 ([90530ab](https://github.com/spi-tch/spitch-typescript/commit/90530ab91735251859adb5769f0f0a23ae98541b))
+* **tests:** bump steady to v0.20.1 ([0aa61e1](https://github.com/spi-tch/spitch-typescript/commit/0aa61e13e3dafcd262c8bbb77096e331e1d8c9e4))
+* **tests:** bump steady to v0.20.2 ([acfb6c3](https://github.com/spi-tch/spitch-typescript/commit/acfb6c30381addd397a6bc17fc37eff7ed7ad657))
+* update mock server docs ([851d4e6](https://github.com/spi-tch/spitch-typescript/commit/851d4e671c828a173bca439e97c88e8392b54291))
+* update placeholder string ([3af8498](https://github.com/spi-tch/spitch-typescript/commit/3af8498a2fda2af26ab2ba838ed943647a9cdba3))
+
+
+### Refactors
+
+* **tests:** switch from prism to steady ([fbebf72](https://github.com/spi-tch/spitch-typescript/commit/fbebf7256c33b8e0d21fe25f2a464892da34fcca))
+
 ## 1.47.0 (2026-02-04)
 
 Full Changelog: [v1.45.0...v1.47.0](https://github.com/spi-tch/spitch-typescript/compare/v1.45.0...v1.47.0)
