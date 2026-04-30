@@ -10,16 +10,18 @@ const client = new Spitch({
 describe('resource speech', () => {
   test('generate: required and optional params', async () => {
     const response = await client.speech.generate({
-      language: 'yo',
       text: 'text',
       voice: 'sade',
       format: 'mp3',
-      model: 'model',
+      language: 'language',
+      speed: 0.7,
     });
   });
 
   test('transcribe: only required params', async () => {
-    const responsePromise = client.speech.transcribe({ language: 'yo' });
+    const responsePromise = client.speech.transcribe({
+      content: await toFile(Buffer.from('3c90cdcc-0d14-4b50-8038-8dd25796052a'), 'README.md'),
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -31,12 +33,11 @@ describe('resource speech', () => {
 
   test('transcribe: required and optional params', async () => {
     const response = await client.speech.transcribe({
-      language: 'yo',
-      content: await toFile(Buffer.from('Example data'), 'README.md'),
+      content: await toFile(Buffer.from('3c90cdcc-0d14-4b50-8038-8dd25796052a'), 'README.md'),
+      language: 'language',
       model: 'mansa_v1',
       special_words: 'special_words',
       timestamp: 'sentence',
-      url: 'url',
     });
   });
 });

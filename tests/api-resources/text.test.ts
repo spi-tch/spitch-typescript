@@ -9,7 +9,7 @@ const client = new Spitch({
 
 describe('resource text', () => {
   test('toneMark: only required params', async () => {
-    const responsePromise = client.text.toneMark({ language: 'yo', text: 'text' });
+    const responsePromise = client.text.toneMark({ language: 'language', text: 'text' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -20,15 +20,11 @@ describe('resource text', () => {
   });
 
   test('toneMark: required and optional params', async () => {
-    const response = await client.text.toneMark({ language: 'yo', text: 'text' });
+    const response = await client.text.toneMark({ language: 'language', text: 'text' });
   });
 
   test('translate: only required params', async () => {
-    const responsePromise = client.text.translate({
-      source: 'yo',
-      target: 'yo',
-      text: 'text',
-    });
+    const responsePromise = client.text.translate({ target: 'target', text: 'text' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -40,9 +36,11 @@ describe('resource text', () => {
 
   test('translate: required and optional params', async () => {
     const response = await client.text.translate({
-      source: 'yo',
-      target: 'yo',
+      target: 'target',
       text: 'text',
+      formality: 'casual',
+      source: 'source',
+      tone: 'neutral',
     });
   });
 });

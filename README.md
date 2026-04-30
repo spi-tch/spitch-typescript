@@ -27,9 +27,9 @@ const client = new Spitch({
 });
 
 const response = await client.speech.generate({
-  language: 'yo',
   text: 'Bawo ni, ololufe?',
   voice: 'femi',
+  language: 'yo',
 });
 
 const content = await response.blob();
@@ -49,9 +49,9 @@ const client = new Spitch({
 });
 
 const params: Spitch.SpeechGenerateParams = {
-  language: 'yo',
   text: 'Bawo ni, ololufe?',
   voice: 'sade',
+  language: 'yo',
 };
 const response: Response = await client.speech.generate(params);
 ```
@@ -74,23 +74,17 @@ import Spitch, { toFile } from 'spitch';
 const client = new Spitch();
 
 // If you have access to Node `fs` we recommend using `fs.createReadStream()`:
-await client.speech.transcribe({ language: 'yo', content: fs.createReadStream('/path/to/file') });
+await client.speech.transcribe({ content: fs.createReadStream('/path/to/file') });
 
 // Or if you have the web `File` API you can pass a `File` instance:
-await client.speech.transcribe({ language: 'yo', content: new File(['my bytes'], 'file') });
+await client.speech.transcribe({ content: new File(['my bytes'], 'file') });
 
 // You can also pass a `fetch` `Response`:
-await client.speech.transcribe({ language: 'yo', content: await fetch('https://somesite/file') });
+await client.speech.transcribe({ content: await fetch('https://somesite/file') });
 
 // Finally, if none of the above are convenient, you can use our `toFile` helper:
-await client.speech.transcribe({
-  language: 'yo',
-  content: await toFile(Buffer.from('my bytes'), 'file'),
-});
-await client.speech.transcribe({
-  language: 'yo',
-  content: await toFile(new Uint8Array([0, 1, 2]), 'file'),
-});
+await client.speech.transcribe({ content: await toFile(Buffer.from('my bytes'), 'file') });
+await client.speech.transcribe({ content: await toFile(new Uint8Array([0, 1, 2]), 'file') });
 ```
 
 ## Handling errors
@@ -103,9 +97,9 @@ a subclass of `APIError` will be thrown:
 ```ts
 const response = await client.speech
   .generate({
-    language: 'yo',
     text: 'Bawo ni, ololufe?',
     voice: 'sade',
+    language: 'yo',
   })
   .catch(async (err) => {
     if (err instanceof Spitch.APIError) {
@@ -148,9 +142,9 @@ const client = new Spitch({
 
 // Or, configure per-request:
 await client.speech.generate({
-  language: 'yo',
   text: 'Bawo ni, ololufe?',
   voice: 'sade',
+  language: 'yo',
 }, {
   maxRetries: 5,
 });
@@ -169,9 +163,9 @@ const client = new Spitch({
 
 // Override per-request:
 await client.speech.generate({
-  language: 'yo',
   text: 'Bawo ni, ololufe?',
   voice: 'sade',
+  language: 'yo',
 }, {
   timeout: 5 * 1000,
 });
@@ -228,9 +222,9 @@ const client = new Spitch();
 
 const response = await client.speech
   .generate({
-    language: 'yo',
     text: 'Bawo ni, ololufe?',
     voice: 'sade',
+    language: 'yo',
   })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
@@ -238,9 +232,9 @@ console.log(response.statusText); // access the underlying Response object
 
 const { data: response, response: raw } = await client.speech
   .generate({
-    language: 'yo',
     text: 'Bawo ni, ololufe?',
     voice: 'sade',
+    language: 'yo',
   })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
