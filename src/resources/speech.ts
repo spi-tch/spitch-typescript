@@ -12,8 +12,7 @@ import { multipartFormRequestOptions } from '../internal/uploads';
  */
 export class Speech extends APIResource {
   /**
-   * Convert text to speech. Select a voice and use that to generate audio in any
-   * format. Audio is retured in chunks.
+   * Generate audio
    */
   generate(body: SpeechGenerateParams, options?: RequestOptions): APIPromise<Response> {
     return this._client.post('/v1/speech', {
@@ -64,28 +63,26 @@ export interface Transcription {
   /**
    * for audit purposes.
    */
-  request_id: string;
-
-  text: string;
+  request_id?: string;
 
   /**
-   * sentence-level or word-level groupings of your transcript. Each sentence (or
-   * word) will fall within a time range.
+   * Either `sentence-level` or `word-level` groupings of your transcript. Each
+   * sentence (or word) will fall within a time range.
    */
   segments?: Array<Segment> | null;
 
-  /**
-   * @deprecated sentence-level or word-level groupings of your transcript. Each
-   * sentence (or word) will fall within a time range.
-   */
-  timestamps?: Array<Segment> | null;
+  text?: string;
 }
 
 export interface SpeechGenerateParams {
-  language: 'yo' | 'en' | 'ha' | 'ig' | 'am' | 'pcm';
-
+  /**
+   * The text for which you want to generate audio.
+   */
   text: string;
 
+  /**
+   * The voice you want to be used for audio generation.
+   */
   voice:
     | 'sade'
     | 'segun'
@@ -101,38 +98,60 @@ export interface SpeechGenerateParams {
     | 'lucy'
     | 'henry'
     | 'kani'
+    | 'remi'
+    | 'kingsley'
     | 'ngozi'
     | 'amara'
     | 'obinna'
     | 'ebuka'
     | 'hana'
-    | 'selam'
+    | 'haile'
     | 'tena'
-    | 'tesfaye';
+    | 'tesfaye'
+    | 'ufoma'
+    | 'tega'
+    | 'justice'
+    | 'boma';
 
   /**
-   * the audio format for the returned audio bytes.
+   * The audio format for the returned audio data, defaults to `wav`.
    */
   format?: 'mp3' | 'wav' | 'ogg_opus' | 'webm_opus' | 'mulaw' | 'alaw' | 'flac' | 'pcm_s16le';
 
-  model?: string | null;
+  /**
+   * This is optional; an ISO 639 language code to be used for the generation.
+   */
+  language?: string;
+
+  /**
+   * The speed of the voice, defaults to `1.0`
+   */
+  speed?: number;
 }
 
 export interface SpeechTranscribeParams {
-  language: 'yo' | 'en' | 'ha' | 'ig' | 'am' | 'pcm';
+  /**
+   * The audio file or content that you want to transcribe. This could be;
+   * `file bytes`, a `url to an audio file` (ensure the link does not require
+   * authentication to access the file) or a `file UUID`.
+   */
+  content: Uploadable | string;
 
-  content?: Uploadable | string | null;
+  /**
+   * This is optional, an ISO-639 language code that corresponds to the language in
+   * the `content`.
+   */
+  language?: string | null;
 
+  /**
+   * @deprecated Select the model to be used to perform the transcription, this param
+   * has been deprecated.
+   */
   model?: 'mansa_v1' | 'legacy' | null;
 
   special_words?: string | null;
 
-  timestamp?: 'sentence' | 'word' | 'none' | null;
-
-  /**
-   * @deprecated
-   */
-  url?: string | null;
+  timestamp?: 'sentence' | 'word' | null;
 }
 
 export declare namespace Speech {

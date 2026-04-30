@@ -6,7 +6,7 @@ import { RequestOptions } from '../internal/request-options';
 
 export class Text extends APIResource {
   /**
-   * Add appopriate tone marks to text.
+   * Add appropriate tone marks to text.
    */
   toneMark(body: TextToneMarkParams, options?: RequestOptions): APIPromise<Diacritics> {
     return this._client.post('/v1/diacritics', { body, ...options });
@@ -34,17 +34,39 @@ export interface Translation {
 }
 
 export interface TextToneMarkParams {
-  language: 'yo' | 'en' | 'ha' | 'ig' | 'am' | 'pcm';
+  /**
+   * Only Yoruba is supported at the moment.
+   */
+  language: string;
 
   text: string;
 }
 
 export interface TextTranslateParams {
-  source: 'yo' | 'en' | 'ha' | 'ig' | 'am' | 'pcm';
+  /**
+   * An ISO 639 code of the language you want to translate to.
+   */
+  target: string;
 
-  target: 'yo' | 'en' | 'ha' | 'ig' | 'am' | 'pcm';
-
+  /**
+   * The text to be translated.
+   */
   text: string;
+
+  /**
+   * Whether to be `formal` or `casual`.
+   */
+  formality?: 'casual' | 'formal';
+
+  /**
+   * An ISO 639 code of the language you're translating from
+   */
+  source?: string | null;
+
+  /**
+   * The tone of the translated text.
+   */
+  tone?: 'neutral' | 'warm' | 'professional' | 'narration';
 }
 
 export declare namespace Text {
