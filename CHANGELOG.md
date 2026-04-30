@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.49.0 (2026-04-30)
+
+Full Changelog: [v1.48.0...v1.49.0](https://github.com/spi-tch/spitch-typescript/compare/v1.48.0...v1.49.0)
+
+### Features
+
+* **api:** manual updates ([4a94645](https://github.com/spi-tch/spitch-typescript/commit/4a946455673b1eff357a1c7b793f24c173ed6baf))
+* **api:** new features ([c4bf950](https://github.com/spi-tch/spitch-typescript/commit/c4bf9505337f09ddece28c0965c3b26259c5480c))
+* support setting headers via env ([f34c4cd](https://github.com/spi-tch/spitch-typescript/commit/f34c4cd6bc54c3938f1103eb4c547ae6c9630652))
+
+
+### Chores
+
+* **format:** run eslint and prettier separately ([6fef537](https://github.com/spi-tch/spitch-typescript/commit/6fef537019aee8be0e4a9c54ea8325eaae77cf60))
+* **internal:** codegen related update ([958f081](https://github.com/spi-tch/spitch-typescript/commit/958f081393bcab79e039f27b991db5d2ec111c32))
+* **internal:** more robust bootstrap script ([bff841e](https://github.com/spi-tch/spitch-typescript/commit/bff841e4f29daf987d411a2b5a2cf1780ccd19dc))
+* **tests:** bump steady to v0.22.1 ([af2f8b0](https://github.com/spi-tch/spitch-typescript/commit/af2f8b07acd5e4623fcdec2d2d15a3d6e74d980c))
+
 ## 1.48.0 (2026-04-17)
 
 Full Changelog: [v1.47.0...v1.48.0](https://github.com/spi-tch/spitch-typescript/compare/v1.47.0...v1.48.0)

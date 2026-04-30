@@ -152,7 +152,7 @@ export class Spitch {
    *
    * @param {string | undefined} [opts.apiKey=process.env['SPITCH_API_KEY'] ?? undefined]
    * @param {boolean | null | undefined} [opts.dataRetention=true]
-   * @param {string} [opts.baseURL=process.env['SPITCH_BASE_URL'] ?? https://api.spi-tch.com] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['SPITCH_BASE_URL'] ?? https://api.spitch.app] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -176,7 +176,7 @@ export class Spitch {
       apiKey,
       dataRetention,
       ...opts,
-      baseURL: baseURL || `https://api.spi-tch.com`,
+      baseURL: baseURL || `https://api.spitch.app`,
     };
 
     this.baseURL = options.baseURL!;
@@ -193,6 +193,18 @@ export class Spitch {
     this.maxRetries = options.maxRetries ?? 2;
     this.fetch = options.fetch ?? Shims.getDefaultFetch();
     this.#encoder = Opts.FallbackEncoder;
+
+    const customHeadersEnv = readEnv('SPITCH_CUSTOM_HEADERS');
+    if (customHeadersEnv) {
+      const parsed: Record<string, string> = {};
+      for (const line of customHeadersEnv.split('\n')) {
+        const colon = line.indexOf(':');
+        if (colon >= 0) {
+          parsed[line.substring(0, colon).trim()] = line.substring(colon + 1).trim();
+        }
+      }
+      options.defaultHeaders = { ...parsed, ...options.defaultHeaders };
+    }
 
     this._options = options;
 
@@ -224,7 +236,7 @@ export class Spitch {
    * Check whether the base URL is set to its default.
    */
   #baseURLOverridden(): boolean {
-    return this.baseURL !== 'https://api.spi-tch.com';
+    return this.baseURL !== 'https://api.spitch.app';
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {

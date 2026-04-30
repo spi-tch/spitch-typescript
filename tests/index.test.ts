@@ -322,13 +322,13 @@ describe('instantiate client', () => {
     test('empty env variable', () => {
       process.env['SPITCH_BASE_URL'] = ''; // empty
       const client = new Spitch({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://api.spi-tch.com');
+      expect(client.baseURL).toEqual('https://api.spitch.app');
     });
 
     test('blank env variable', () => {
       process.env['SPITCH_BASE_URL'] = '  '; // blank
       const client = new Spitch({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://api.spi-tch.com');
+      expect(client.baseURL).toEqual('https://api.spitch.app');
     });
 
     test('in request options', () => {
