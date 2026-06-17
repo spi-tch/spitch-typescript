@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.50.0 (2026-06-17)
+
+Full Changelog: [v1.49.0...v1.50.0](https://github.com/spi-tch/spitch-typescript/compare/v1.49.0...v1.50.0)
+
+### Features
+
+* **api:** manual updates ([562bf3e](https://github.com/spi-tch/spitch-typescript/commit/562bf3e9d105b8236ec31161661b78619f2d72df))
+
+
+### Bug Fixes
+
+* **client:** send content-type header for requests with an omitted optional body ([45c057f](https://github.com/spi-tch/spitch-typescript/commit/45c057f4c79b934303a9c8af9f7425f68c0f0410))
+* **typescript:** upgrade tsc-multi so that it works with Node 26 ([f451470](https://github.com/spi-tch/spitch-typescript/commit/f451470a8ea08dda9bf5d9ca19ca018746e8f613))
+
+
+### Chores
+
+* **internal:** codegen related update ([9552ee7](https://github.com/spi-tch/spitch-typescript/commit/9552ee7fde471812283123e29dcff0d59473a9d9))
+* redact api-key headers in debug logs ([35db412](https://github.com/spi-tch/spitch-typescript/commit/35db4128adfca940f9b4f6dd2a03107dbe9c5219))
+* **tests:** remove redundant File import ([f264fa7](https://github.com/spi-tch/spitch-typescript/commit/f264fa76e7aec3b9d8f78b3280e6a7343bdd2ca6))
+
 ## 1.49.0 (2026-04-30)
 
 Full Changelog: [v1.48.0...v1.49.0](https://github.com/spi-tch/spitch-typescript/compare/v1.48.0...v1.49.0)
