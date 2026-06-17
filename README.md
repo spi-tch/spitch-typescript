@@ -26,11 +26,7 @@ const client = new Spitch({
   apiKey: process.env['SPITCH_API_KEY'], // This is the default and can be omitted
 });
 
-const response = await client.speech.generate({
-  text: 'Bawo ni, ololufe?',
-  voice: 'femi',
-  language: 'yo',
-});
+const response = await client.speech.generate({ text: 'Bawo ni, ololufe?', voice: 'femi' });
 
 const content = await response.blob();
 console.log(content);
@@ -48,11 +44,7 @@ const client = new Spitch({
   apiKey: process.env['SPITCH_API_KEY'], // This is the default and can be omitted
 });
 
-const params: Spitch.SpeechGenerateParams = {
-  text: 'Bawo ni, ololufe?',
-  voice: 'sade',
-  language: 'yo',
-};
+const params: Spitch.SpeechGenerateParams = { text: 'Bawo ni, ololufe?', voice: 'sade' };
 const response: Response = await client.speech.generate(params);
 ```
 
@@ -96,11 +88,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 const response = await client.speech
-  .generate({
-    text: 'Bawo ni, ololufe?',
-    voice: 'sade',
-    language: 'yo',
-  })
+  .generate({ text: 'Bawo ni, ololufe?', voice: 'sade' })
   .catch(async (err) => {
     if (err instanceof Spitch.APIError) {
       console.log(err.status); // 400
@@ -141,11 +129,7 @@ const client = new Spitch({
 });
 
 // Or, configure per-request:
-await client.speech.generate({
-  text: 'Bawo ni, ololufe?',
-  voice: 'sade',
-  language: 'yo',
-}, {
+await client.speech.generate({ text: 'Bawo ni, ololufe?', voice: 'sade' }, {
   maxRetries: 5,
 });
 ```
@@ -162,11 +146,7 @@ const client = new Spitch({
 });
 
 // Override per-request:
-await client.speech.generate({
-  text: 'Bawo ni, ololufe?',
-  voice: 'sade',
-  language: 'yo',
-}, {
+await client.speech.generate({ text: 'Bawo ni, ololufe?', voice: 'sade' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -221,21 +201,13 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 const client = new Spitch();
 
 const response = await client.speech
-  .generate({
-    text: 'Bawo ni, ololufe?',
-    voice: 'sade',
-    language: 'yo',
-  })
+  .generate({ text: 'Bawo ni, ololufe?', voice: 'sade' })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: response, response: raw } = await client.speech
-  .generate({
-    text: 'Bawo ni, ololufe?',
-    voice: 'sade',
-    language: 'yo',
-  })
+  .generate({ text: 'Bawo ni, ololufe?', voice: 'sade' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(response);
