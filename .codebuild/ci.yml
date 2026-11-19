@@ -1,0 +1,11 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 22
+      python: 3.12
+    commands:
+      - npm install --global --force yarn@1.22.22
+  build:
+    commands:
+      - ./scripts/ci
