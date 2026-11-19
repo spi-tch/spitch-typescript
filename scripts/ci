@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+python3 -B scripts/test-release
+./scripts/bootstrap
+./scripts/lint
+./scripts/test
+mkdir -p artifacts
+npm pack --silent ./dist --pack-destination artifacts >/dev/null
+scratch=$(mktemp -d)
+trap 'rm -rf "$scratch"' EXIT
+tsc="$PWD/node_modules/.bin/tsc"
+tarball="$PWD/artifacts/spitch-$(node -p "require('./package.json').version").tgz"
+cd "$scratch"
+npm init -y >/dev/null
+npm install --ignore-scripts --no-audit --no-fund "$tarball"
+for ext in cts mts; do
+  cat > "consumer.$ext" <<'TS'
+import Spitch from 'spitch';
+import { Files } from 'spitch/resources/files';
+const client = new Spitch({ apiKey: 'test' });
+const files: Files = client.files;
+void files;
+TS
+done
+"$tsc" --strict --target es2022 --module nodenext consumer.cts consumer.mts
+node consumer.cjs
+node consumer.mjs
+node -e 'const Spitch = require("spitch"); new Spitch({apiKey: "test"}); require("spitch/resources/files.js")'
