@@ -39,3 +39,7 @@ Methods:
 - <code title="get /v1/files/{file_id}">client.files.<a href="./src/resources/files.ts">get</a>(fileID) -> FileMeta</code>
 - <code title="post /v1/files">client.files.<a href="./src/resources/files.ts">upload</a>({ ...params }) -> FileMeta</code>
 - <code title="get /v1/files:usage">client.files.<a href="./src/resources/files.ts">usage</a>() -> FileUsage</code>
+
+# Balance
+
+Read the prepaid USD credit for the account that owns the API key with `await client.balance.get()`. The amount is an exact decimal string. An unsuccessful lookup raises an SDK error. [Endpoint reference](https://spitch.app/docs/api-reference/billing/check-balance) · [Runnable batch credit check](examples/check-balance.mjs)

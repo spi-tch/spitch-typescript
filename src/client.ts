@@ -15,6 +15,7 @@ import { stringifyQuery } from './internal/utils/query';
 import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Pagination from './core/pagination';
+import { Balance, type BalanceResponse } from './resources/balance';
 import { AbstractPage, type FilesCursorParams, FilesCursorResponse } from './core/pagination';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
@@ -788,11 +789,13 @@ export class Spitch {
    */
   speech: API.Speech = new API.Speech(this);
   text: API.Text = new API.Text(this);
+  balance: API.Balance = new API.Balance(this);
   files: API.Files = new API.Files(this);
 }
 
 Spitch.Speech = Speech;
 Spitch.Text = Text;
+Spitch.Balance = Balance;
 Spitch.Files = Files;
 
 export declare namespace Spitch {
@@ -818,6 +821,8 @@ export declare namespace Spitch {
   };
 
   export {
+    Balance as Balance,
+    type BalanceResponse as BalanceResponse,
     Files as Files,
     type FileMeta as FileMeta,
     type FileUsage as FileUsage,
