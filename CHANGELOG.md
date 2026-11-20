@@ -12,7 +12,6 @@ Full Changelog: [v1.49.0...v1.50.0](https://github.com/spi-tch/spitch-typescript
 ### Bug Fixes
 
 * **client:** send content-type header for requests with an omitted optional body ([45c057f](https://github.com/spi-tch/spitch-typescript/commit/45c057f4c79b934303a9c8af9f7425f68c0f0410))
-* **typescript:** upgrade tsc-multi so that it works with Node 26 ([f451470](https://github.com/spi-tch/spitch-typescript/commit/f451470a8ea08dda9bf5d9ca19ca018746e8f613))
 
 
 ### Chores

@@ -18,6 +18,13 @@ describe('resource speech', () => {
     });
   });
 
+  test('streams the requested audio format', async () => {
+    const response = await client.speech.generate({ text: 'Hello', voice: 'sade' }).asResponse();
+    expect(response.headers.get('content-type')).toBe('audio/wav');
+    expect(response.headers.get('transfer-encoding')).toBe('chunked');
+    expect(Buffer.from(await response.arrayBuffer()).toString('ascii', 0, 4)).toBe('RIFF');
+  });
+
   test('transcribe: only required params', async () => {
     const responsePromise = client.speech.transcribe({
       content: await toFile(Buffer.from('3c90cdcc-0d14-4b50-8038-8dd25796052a'), 'README.md'),
