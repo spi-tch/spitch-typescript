@@ -1,10 +1,12 @@
 # Changelog
 
-## 1.50.0 (2026-06-17)
+## 1.50.0 (unreleased)
 
 Full Changelog: [v1.49.0...v1.50.0](https://github.com/spi-tch/spitch-typescript/compare/v1.49.0...v1.50.0)
 
 ### Features
+
+* Check prepaid USD credit with `client.balance.get()` in Node.js. The response preserves the exact decimal amount. [Balance example](examples/check-balance.mjs)
 
 * **api:** manual updates ([562bf3e](https://github.com/spi-tch/spitch-typescript/commit/562bf3e9d105b8236ec31161661b78619f2d72df))
 
