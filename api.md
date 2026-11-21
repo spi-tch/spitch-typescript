@@ -10,6 +10,8 @@ Methods:
 - <code title="post /v1/speech">client.speech.<a href="./src/resources/speech.ts">generate</a>({ ...params }) -> Response</code>
 - <code title="post /v1/transcriptions">client.speech.<a href="./src/resources/speech.ts">transcribe</a>({ ...params }) -> Transcription</code>
 
+Pass one source to `speech.transcribe`: `content` for an upload or `url` for a public HTTP(S) audio URL. [Run the transcription example](examples/transcribe.mjs) with `SPITCH_API_KEY` set.
+
 # Text
 
 Types:
