@@ -48,3 +48,13 @@ describe('resource speech', () => {
     });
   });
 });
+
+test('transcription URL is a multipart text field', async () => {
+  const url = 'https://example.org/audio.wav';
+  expect((await client.speech.transcribe({ url })).text).toBe('Hello');
+  expect((await client.speech.transcribe({ content: url })).text).toBe('Hello');
+  // @ts-expect-error JavaScript callers can omit the source.
+  expect(() => client.speech.transcribe({})).toThrow('exactly one');
+  // @ts-expect-error JavaScript callers can pass both fields.
+  expect(() => client.speech.transcribe({ content: url, url })).toThrow('exactly one');
+});

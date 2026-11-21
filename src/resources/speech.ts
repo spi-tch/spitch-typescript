@@ -28,9 +28,20 @@ export class Speech extends APIResource {
    * that represents the content of the audio file.
    */
   transcribe(body: SpeechTranscribeParams, options?: RequestOptions): APIPromise<Transcription> {
+    const { content, url, ...params } = body;
+    if ((content == null) === (url == null)) {
+      throw new TypeError(
+        'Supply exactly one audio source: content for a file or url for a public audio URL.',
+      );
+    }
+    const address = typeof content === 'string' ? content : url;
+    if (address !== undefined && !/^https?:\/\/[^/\s]+/i.test(address)) {
+      throw new TypeError('Supply a public HTTP(S) audio URL in url.');
+    }
+    const source = address !== undefined ? { url: address } : { content };
     return this._client.post(
       '/v1/transcriptions',
-      multipartFormRequestOptions({ body, ...options }, this._client),
+      multipartFormRequestOptions({ body: { ...params, ...source }, ...options }, this._client),
     );
   }
 }
@@ -129,14 +140,10 @@ export interface SpeechGenerateParams {
   speed?: number;
 }
 
-export interface SpeechTranscribeParams {
-  /**
-   * The audio file or content that you want to transcribe. This could be;
-   * `file bytes`, a `url to an audio file` (ensure the link does not require
-   * authentication to access the file) or a `file UUID`.
-   */
-  content: Uploadable | string;
-
+export type SpeechTranscribeParams = (
+  | { content: Uploadable | string; url?: never }
+  | { url: string; content?: never }
+) & {
   /**
    * This is optional, an ISO-639 language code that corresponds to the language in
    * the `content`.
@@ -152,7 +159,7 @@ export interface SpeechTranscribeParams {
   special_words?: string | null;
 
   timestamp?: 'sentence' | 'word' | null;
-}
+};
 
 export declare namespace Speech {
   export {
