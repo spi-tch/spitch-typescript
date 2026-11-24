@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.51.0 (2026-11-24)
+
+* Transcribe a public audio URL with `client.speech.transcribe` or pass `content` to upload a recording.
+
 ## 1.50.0 (unreleased)
 
 Full Changelog: [v1.49.0...v1.50.0](https://github.com/spi-tch/spitch-typescript/compare/v1.49.0...v1.50.0)
