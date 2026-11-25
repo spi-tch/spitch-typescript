@@ -16,6 +16,7 @@ export {
   Speech,
   type Segment,
   type Transcription,
+  type TranscriptionJob,
   type SpeechGenerateParams,
   type SpeechTranscribeParams,
 } from './speech';

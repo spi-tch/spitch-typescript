@@ -28,22 +28,88 @@ export class Speech extends APIResource {
    * that represents the content of the audio file.
    */
   transcribe(body: SpeechTranscribeParams, options?: RequestOptions): APIPromise<Transcription> {
-    const { content, url, ...params } = body;
-    if ((content == null) === (url == null)) {
-      throw new TypeError(
-        'Supply exactly one audio source: content for a file or url for a public audio URL.',
-      );
-    }
-    const address = typeof content === 'string' ? content : url;
-    if (address !== undefined && !/^https?:\/\/[^/\s]+/i.test(address)) {
-      throw new TypeError('Supply a public HTTP(S) audio URL in url.');
-    }
-    const source = address !== undefined ? { url: address } : { content };
     return this._client.post(
       '/v1/transcriptions',
-      multipartFormRequestOptions({ body: { ...params, ...source }, ...options }, this._client),
+      multipartFormRequestOptions({ body: transcriptionBody(body), ...options }, this._client),
     );
   }
+
+  /** Submit the audio once and save the returned job ID. */
+  submitTranscription(body: SpeechTranscribeParams, options?: RequestOptions): APIPromise<TranscriptionJob> {
+    return this._client.post(
+      '/v1/transcriptions',
+      multipartFormRequestOptions(
+        {
+          ...options,
+          body: transcriptionBody(body),
+          query: { ...options?.query, async: true },
+          maxRetries: 0,
+        },
+        this._client,
+      ),
+    );
+  }
+
+  /** Retrieve a job using the workspace that submitted it. */
+  getTranscription(jobId: string, options?: RequestOptions): APIPromise<TranscriptionJob> {
+    if (!jobId || jobId === '.' || jobId === '..') throw new TypeError('Provide a transcription job ID.');
+    return this._client.get('/v1/transcriptions/' + encodeURIComponent(jobId), options);
+  }
+
+  /** Poll by ID until succeeded or failed. A deadline leaves the server-side job running. */
+  async waitForTranscription(
+    jobId: string,
+    { timeoutMs = 300_000, pollIntervalMs = 2_000 } = {},
+  ): Promise<TranscriptionJob> {
+    for (const value of [timeoutMs, pollIntervalMs]) {
+      if (!Number.isFinite(value) || value <= 0 || value > 2_147_483_647) {
+        throw new RangeError('timeoutMs and pollIntervalMs must be positive and within the timer range.');
+      }
+    }
+    const controller = new AbortController();
+    const deadline = performance.now() + timeoutMs;
+    const timeoutError = () =>
+      new Error('Timed out waiting for transcription ' + jobId + '. Resume with the same job ID.');
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      while (performance.now() < deadline) {
+        const job = await this.getTranscription(jobId, { maxRetries: 0, signal: controller.signal });
+        const remaining = deadline - performance.now();
+        if (remaining <= 0) break;
+        if (job.status === 'succeeded' || job.status === 'failed') return job;
+        await new Promise<void>((resolve) => setTimeout(resolve, Math.min(pollIntervalMs, remaining)));
+      }
+      throw timeoutError();
+    } catch (error) {
+      if (controller.signal.aborted) throw timeoutError();
+      throw error;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+}
+
+function transcriptionBody(body: SpeechTranscribeParams) {
+  const { content, url, ...params } = body;
+  if ((content == null) === (url == null)) {
+    throw new TypeError('Supply exactly one audio source: content for a file or url for a public audio URL.');
+  }
+  const address = typeof content === 'string' ? content : url;
+  if (address !== undefined && !/^https?:\/\/[^/\s]+/i.test(address)) {
+    throw new TypeError('Supply a public HTTP(S) audio URL in url.');
+  }
+  const source = address !== undefined ? { url: address } : { content };
+  return { ...params, ...source };
+}
+
+export interface TranscriptionJob {
+  id: string;
+  status: 'queued' | 'processing' | 'succeeded' | 'failed';
+  created_at: string;
+  polling_url: string;
+  completed_at?: string | null;
+  result?: Transcription | null;
+  error?: Record<string, unknown> | null;
 }
 
 /**
@@ -165,6 +231,7 @@ export declare namespace Speech {
   export {
     type Segment as Segment,
     type Transcription as Transcription,
+    type TranscriptionJob as TranscriptionJob,
     type SpeechGenerateParams as SpeechGenerateParams,
     type SpeechTranscribeParams as SpeechTranscribeParams,
   };
