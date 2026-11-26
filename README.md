@@ -119,6 +119,12 @@ Certain errors will be automatically retried 2 times by default, with a short ex
 Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict,
 429 Rate Limit, and >=500 Internal errors will all be retried by default.
 
+The [bounded batch example](examples/rate-limited-batch.mjs) reads metadata for workspace files one at a time. It prints the server’s retry advice, allows three total attempts within 30 seconds per file and stops on a billing failure. With `SPITCH_API_KEY` set, run:
+
+```sh
+node examples/rate-limited-batch.mjs FILE_ID [FILE_ID ...]
+```
+
 You can use the `maxRetries` option to configure or disable this:
 
 <!-- prettier-ignore -->

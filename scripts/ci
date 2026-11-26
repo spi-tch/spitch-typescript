@@ -5,6 +5,7 @@ python3 -B scripts/test-release
 ./scripts/bootstrap
 ./scripts/lint
 ./scripts/test
+node --test scripts/test-rate-limit-example.mjs
 mkdir -p artifacts
 npm pack --silent ./dist --pack-destination artifacts >/dev/null
 scratch=$(mktemp -d)
