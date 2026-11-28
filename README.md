@@ -32,6 +32,17 @@ const content = await response.blob();
 console.log(content);
 ```
 
+### Make your first speech request
+
+Create a key in your workspace's [API keys](https://spitch.app/api/keys) and set it as `SPITCH_API_KEY` in your terminal. In a new directory, save [first-request.mjs](examples/first-request.mjs) and run:
+
+```sh
+npm install spitch@1.51.0
+node first-request.mjs
+```
+
+The example generates an Igbo greeting with Ngozi, saves the audio to `hello.wav`, and prints the request ID from the response headers. Open the file to listen. In the same workspace's [Logs](https://spitch.app/api/logs), open the recent `POST /v1/speech` call and compare its request ID with the one in your terminal. If the response omits the ID, the audio is still saved and the example reports that the ID is unavailable.
+
 ### Request & Response types
 
 This library includes TypeScript definitions for all request params and response fields. You may import and use them like so:
